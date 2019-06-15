@@ -6,6 +6,7 @@ import { Provider } from 'styletron-react';
 
 import { Card, StyledBody, StyledAction } from 'baseui/card';
 import { Button } from 'baseui/button';
+import * as T from 'baseui/typography';
 
 const engine = new Styletron({
     hydrate: document.getElementsByClassName('_styletron_hydrate_'),
@@ -29,4 +30,23 @@ storiesOf('Base Web', module)
                 </Button>
             </StyledAction>
         </Card>
-    ));
+    ))
+    .add('Typography', () => {
+        const text = 'The quick brown fox jumped over the lazy dog';
+        return (
+            <>
+                {Object.keys(T).map(typo => {
+                    const Typography = T[typo];
+                    return (
+                        <Card $style={{ marginBottom: '1rem' }}>
+                            <StyledBody>
+                                <Typography>
+                                    {typo} - {text}
+                                </Typography>
+                            </StyledBody>
+                        </Card>
+                    );
+                })}
+            </>
+        );
+    });

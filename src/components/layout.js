@@ -3,6 +3,7 @@ import './index.css';
 import { Block } from 'baseui/block';
 
 import Header from './header';
+import Footer from './footer';
 
 export default props => (
     <Block display="flex" flexDirection="column" minHeight="100vh">
@@ -10,6 +11,6 @@ export default props => (
             <Header />
             {props.children}
         </Block>
-        <footer>footer</footer>
+        <Footer />
     </Block>
 );
