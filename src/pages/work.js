@@ -2,4 +2,4 @@ import React from 'react';
 
 import Layout from '../components/layout';
 
-export default () => <Layout>Home</Layout>;
+export default () => <Layout>Work</Layout>;
