@@ -18,6 +18,7 @@
         "baseui": "^7.2.0",
         "gatsby": "^2.9.2",
         "gatsby-plugin-styletron": "^4.0.0",
+        "gatsby-source-contentful": "^2.0.71",
         "react": "^16.8.6",
         "react-dom": "^16.8.6",
         "styletron-engine-atomic": "^1.3.0",
