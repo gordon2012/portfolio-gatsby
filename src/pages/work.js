@@ -40,10 +40,10 @@ export default () => {
             <Container width="1200px" $style={{ border: '3px solid red' }}>
                 <FlexGrid
                     $style={{ border: '3px solid magenta' }}
-                    padding="1rem"
-                    flexGridColumnCount={[1, 1, 2, 3]}
-                    flexGridColumnGap="scale800"
-                    flexGridRowGap="scale800"
+                    padding="2rem"
+                    flexGridColumnCount={[1, 1, 1, 2, 3]}
+                    flexGridColumnGap="2rem"
+                    flexGridRowGap="2rem"
                 >
                     {/* {data.allContentfulProject.edges.map((edge, i) => ( */}
                     {test.map((t, i) => (
