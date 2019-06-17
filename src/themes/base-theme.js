@@ -13,9 +13,9 @@ export default createTheme(
     // },
 
     breakpoints: {
-        small: '600px',
-        medium: '900px',
-        large: '1200px',
+        small: 600,
+        medium: 900,
+        large: 1200,
     }
 
 

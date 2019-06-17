@@ -4,7 +4,7 @@ import { Client as Styletron } from 'styletron-engine-atomic';
 import {BaseProvider} from 'baseui';
 import {Provider as StyletronProvider} from 'styletron-react';
 
-import baseTheme from './theme/base-theme';
+import baseTheme from './src/themes/base-theme';
 
 
 const engine = new Styletron({
@@ -16,7 +16,7 @@ export const wrapRootElement = ({ element }, options) => (
 
     <StyletronProvider value={engine}>
         <BaseProvider theme={baseTheme}>
-            <YourApp />
+            {element}
         </BaseProvider>
     </StyletronProvider>
 
