@@ -5,11 +5,11 @@ import { Block } from 'baseui/block';
 import Header from './header';
 import Footer from './footer';
 
-export default props => (
+export default ({children, ...props}) => (
     <Block display="flex" flexDirection="column" minHeight="100vh">
-        <Block flex="1">
+        <Block flex="1" {...props}>
             <Header />
-            {props.children}
+            {children}
         </Block>
         <Footer />
     </Block>

@@ -13,6 +13,8 @@ import Search from 'baseui/icon/search';
 import Layout from '../components/layout';
 import Container from '../components/container';
 
+import WorkCard from '../components/work-card';
+
 export default () => {
     const data = useStaticQuery(graphql`
         query {
@@ -43,7 +45,7 @@ export default () => {
     const nodes = data.allContentfulProject.edges.map(edge => edge.node);
 
     return (
-        <Layout>
+        <Layout backgroundColor="#ddd">
             <T.H2 $style={{ textAlign: 'center' }}>My Work</T.H2>
 
             <Container width="1200px" $style={{ border: '3px solid red' }}>
@@ -56,55 +58,7 @@ export default () => {
                 >
                     {nodes.map((node, i) => (
                         <FlexGridItem key={i}>
-                            <Card
-                                headerImage={node.images[0].file.url}
-                                title={node.title}
-                                overrides={{
-                                    Contents: {
-                                        style: {
-                                            marginTop: '0.2rem',
-                                        },
-                                    },
-                                }}
-                            >
-                                <StyledBody>
-                                    <Block
-                                        marginLeft="-5px"
-                                        marginBottom="0.2rem"
-                                    >
-                                        <Tag
-                                            $as="div"
-                                            closeable={false}
-                                            kind="neutral"
-                                            variant="outlined"
-                                        >
-                                            {node.category}
-                                        </Tag>
-                                    </Block>
-
-                                    <Block marginLeft="-5px">
-                                        {node.skills.map((skill, i) => (
-                                            <Tag
-                                                key={i}
-                                                closeable={false}
-                                                kind="neutral"
-                                                variant="solid"
-                                            >
-                                                {skill}
-                                            </Tag>
-                                        ))}
-                                    </Block>
-                                </StyledBody>
-                                <StyledAction>
-                                    <Button
-                                        size="compact"
-                                        kind="primary"
-                                        style={{ width: `100%` }}
-                                    >
-                                        <Search size={48} />
-                                    </Button>
-                                </StyledAction>
-                            </Card>
+                            <WorkCard work={node}/>
                         </FlexGridItem>
                     ))}
                 </FlexGrid>
