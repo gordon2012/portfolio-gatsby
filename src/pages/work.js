@@ -48,9 +48,13 @@ export default () => {
         <Layout backgroundColor="#ddd">
             <T.H2 $style={{ textAlign: 'center' }}>My Work</T.H2>
 
-            <Container width="1200px" $style={{ border: '3px solid red' }}>
+            <pre>
+                <code>{JSON.stringify(nodes, null, 2)}</code>
+            </pre>
+
+            <Container width="1200px" $style={{ border: '0px solid red' }}>
                 <FlexGrid
-                    $style={{ border: '3px solid magenta' }}
+                    $style={{ border: '0px solid magenta' }}
                     padding="2rem"
                     flexGridColumnCount={[1, 1, 2, 3]}
                     flexGridColumnGap="2rem"
@@ -58,7 +62,7 @@ export default () => {
                 >
                     {nodes.map((node, i) => (
                         <FlexGridItem key={i}>
-                            <WorkCard work={node}/>
+                            <WorkCard work={node} />
                         </FlexGridItem>
                     ))}
                 </FlexGrid>
