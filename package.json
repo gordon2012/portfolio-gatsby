@@ -16,7 +16,7 @@
     },
     "dependencies": {
         "@contentful/rich-text-react-renderer": "^13.2.0",
-        "baseui": "^7.2.0",
+        "baseui": "^8.8.0",
         "gatsby": "^2.9.2",
         "gatsby-plugin-styletron": "^4.0.0",
         "gatsby-source-contentful": "^2.0.71",

@@ -3,8 +3,6 @@ import { graphql, useStaticQuery } from 'gatsby';
 import * as T from 'baseui/typography';
 import { FlexGrid, FlexGridItem } from 'baseui/flex-grid';
 
-// import { documentToReactComponents } from '@contentful/rich-text-react-renderer';
-
 import Layout from '../components/layout';
 import Container from '../components/container';
 import WorkCard from '../components/work-card';
@@ -14,10 +12,10 @@ export default () => {
         query {
             allContentfulProject(
                 filter: {
-                    category: {enabled: {eq: true}},
-                    enabled: {eq: true}
+                    category: { enabled: { eq: true } }
+                    enabled: { eq: true }
                 }
-                sort: { fields: [order], order: ASC}
+                sort: { fields: [order], order: ASC }
             ) {
                 group(field: category___order) {
                     edges {
@@ -50,10 +48,10 @@ export default () => {
     const categories = data.allContentfulProject.group.map(group => {
         return {
             name: group.edges[0].node.category.name,
-            projects: group.edges.map((edge) => {
+            projects: group.edges.map(edge => {
                 const { category, ...node } = edge.node;
                 return node;
-            })
+            }),
         };
     });
 
@@ -61,7 +59,11 @@ export default () => {
         <Layout backgroundColor="#ddd">
             <T.H2 $style={{ textAlign: 'center' }}>My Work</T.H2>
 
-            <Container width="1200px" padding="0 2rem 2rem" $style={{ border: '0px solid red' }}>
+            <Container
+                width="1200px"
+                padding="0 2rem 2rem"
+                $style={{ border: '0px solid red' }}
+            >
                 {categories.map(category => (
                     <React.Fragment key={category.name}>
                         <T.H4>{category.name}</T.H4>
