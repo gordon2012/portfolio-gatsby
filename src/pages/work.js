@@ -12,37 +12,49 @@ import WorkCard from '../components/work-card';
 export default () => {
     const data = useStaticQuery(graphql`
         query {
-            allContentfulProject {
-                edges {
-                    node {
-                        title
-                        category
-                        skills
-                        images {
+            allContentfulProject(
+                filter: {
+                    category: {enabled: {eq: true}},
+                    enabled: {eq: true}
+                }
+                sort: { fields: [order], order: ASC}
+            ) {
+                group(field: category___order) {
+                    edges {
+                        node {
                             title
-                            file {
+                            category {
+                                name
+                            }
+                            skills
+                            images {
+                                title
+                                file {
+                                    url
+                                }
+                            }
+                            links {
+                                title
                                 url
                             }
-                        }
-                        links {
-                            title
-                            url
-                        }
-                        body {
-                            json
+                            body {
+                                json
+                            }
                         }
                     }
                 }
             }
         }
     `);
-    const nodes = data.allContentfulProject.edges.map(edge => edge.node);
 
-    const categories = Array.from(new Set(nodes.map(node => node.category)));
-
-    let projects = {};
-    categories.forEach(category => {
-        projects[category] = nodes.filter(node => node.category === category);
+    const categories = data.allContentfulProject.group.map(group => {
+        return {
+            name: group.edges[0].node.category.name,
+            projects: group.edges.map((edge) => {
+                const { category, ...node } = edge.node;
+                return node;
+            })
+        };
     });
 
     return (
@@ -51,8 +63,8 @@ export default () => {
 
             <Container width="1200px" padding="0 2rem 2rem" $style={{ border: '0px solid red' }}>
                 {categories.map(category => (
-                    <React.Fragment key={category}>
-                        <T.H4>{category}</T.H4>
+                    <React.Fragment key={category.name}>
+                        <T.H4>{category.name}</T.H4>
                         <FlexGrid
                             $style={{ border: '0px solid magenta' }}
                             padding="0rem"
@@ -60,7 +72,7 @@ export default () => {
                             flexGridColumnGap="2rem"
                             flexGridRowGap="2rem"
                         >
-                            {projects[category].map((project, i) => (
+                            {category.projects.map((project, i) => (
                                 <FlexGridItem key={i}>
                                     <WorkCard work={project} />
                                 </FlexGridItem>
