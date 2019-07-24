@@ -45,6 +45,9 @@ export default () => {
         }
     `);
 
+    // "babel-loader": "^8.0.6",
+    // "@babel/core": "^7.4.5",
+
     const categories = data.allContentfulProject.group.map(group => {
         return {
             name: group.edges[0].node.category.name,
