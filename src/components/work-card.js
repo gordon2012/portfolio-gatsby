@@ -1,5 +1,4 @@
 import React from 'react';
-
 import { Card } from 'baseui/card';
 import { Button } from 'baseui/button';
 import * as T from 'baseui/typography';
@@ -7,33 +6,16 @@ import { Block } from 'baseui/block';
 import { Tag } from 'baseui/tag';
 import Search from 'baseui/icon/search';
 import { styled } from 'baseui';
-import {
-    Modal,
-    ModalHeader,
-    ModalBody,
-    ModalFooter,
-    ModalButton,
-    FocusOnce,
-} from 'baseui/modal';
+import { Modal, ModalHeader, ModalBody, FocusOnce } from 'baseui/modal';
 import { documentToReactComponents } from '@contentful/rich-text-react-renderer';
 
 import Link from './link';
-
-// import { Link as UnstyledLink } from './link';
-// const Link = props => (
-//     <UnstyledLink
-//         {...props}
-//         $style={{
-//             color: 'white',
-//         }}
-//     />
-// );
 
 const Image = styled('img', {});
 
 const Debug = ({ title, tabsize = 2, children }) => (
     <Card $style={{ marginBottom: '1rem' }}>
-        <pre style={{ whiteSpace: 'pre-wrap' }}>
+        <pre style={{ whiteSpace: 'pre-wrap', wordWrap: 'break-word' }}>
             <code>
                 {title && `${title} = `}
                 {JSON.stringify(children, null, tabsize)}
@@ -113,63 +95,79 @@ const WorkCard = ({ work }) => {
                 overrides={{
                     Root: {
                         style: {
-                            // border: '3px solid magenta',
-                            // paddingTop: '10vh',
-                            // paddingRight: '10vw',
-                            // paddingBottom: '10vh',
-                            // paddingLeft: '10vw',
+                            paddingTop: '10vh',
+                            paddingRight: '10vw',
+                            paddingBottom: '10vh',
+                            paddingLeft: '10vw',
                         },
                     },
                     Dialog: {
                         style: {
-                            // border: '3px solid red',
-                            // marginTop: '-1rem',
-                            // marginBottom: '-20vh',
-
-                            marginTop: '10vh',
-                            marginRight: '10vw',
-                            marginBottom: '10vh',
-                            marginLeft: '10vw',
-
                             display: 'flex',
                             flexDirection: 'column',
                         },
                     },
                 }}
             >
-                {/* <Block flex="1" $style={{ border: '3px solid red' }}>
-                    Buttons
-                </Block> */}
                 <FocusOnce>
                     <ModalHeader>{work.title}</ModalHeader>
                 </FocusOnce>
-                <ModalBody $style={{ border: '3px solid magenta', flex: '1' }}>
+                <ModalBody $style={{ flex: '1' }}>
                     {documentToReactComponents(work.body.json)}
 
                     {/* <Debug title="skills">{work.skills}</Debug> */}
-                    {/* <Debug title="images">{work.images}</Debug> */}
-                    <Debug title="links">{work.links}</Debug>
+                    <Debug title="images">{work.images}</Debug>
+                    {/* <Debug title="links">{work.links}</Debug> */}
 
-                    <Block $style={{ border: '3px solid red' }}>Buttons</Block>
+                    <Block>Buttons</Block>
                 </ModalBody>
-                <ModalFooter>
-                    <ModalButton autoFocus onClick={() => setOpen(false)}>
-                        Close
-                    </ModalButton>
+                <Block
+                    display={['block', 'flex']}
+                    $style={{
+                        padding: '0.75rem',
+                    }}
+                >
                     {work.links.map((link, i) => (
-                        <ModalButton key={i}>
+                        <Block
+                            key={i}
+                            flex="1"
+                            $style={{
+                                padding: '0.75rem',
+                            }}
+                        >
                             <Link
                                 to={link.url}
+                                target="_blank"
+                                rel="noopener noreferrer"
                                 $style={{
                                     color: 'white',
                                     textDecoration: 'none',
                                 }}
                             >
-                                {link.title}
+                                <Button $style={{ width: '100%' }}>
+                                    {link.title}
+                                </Button>
                             </Link>
-                        </ModalButton>
+                        </Block>
                     ))}
-                </ModalFooter>
+                    <Block
+                        padding="0.75rem"
+                        flex={['1', '0']}
+                        $style={{
+                            '@media (min-width: 600px)': {
+                                order: '-1',
+                            },
+                        }}
+                    >
+                        <Button
+                            autoFocus
+                            onClick={() => setOpen(false)}
+                            $style={{ width: '100%' }}
+                        >
+                            Close
+                        </Button>
+                    </Block>
+                </Block>
             </Modal>
         </>
     );
