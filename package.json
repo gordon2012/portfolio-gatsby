@@ -5,7 +5,8 @@
     "version": "0.1.0",
     "license": "MIT",
     "scripts": {
-        "build": "env-cmd -f .env gatsby build",
+        "build": "gatsby build",
+        "build:local": "env-cmd -f .env gatsby build",
         "develop": "env-cmd -f .env gatsby develop",
         "format": "prettier --write src/**/*.{js,jsx}",
         "start": "npm run develop",
@@ -21,6 +22,7 @@
         "babel-loader": "^8.0.6",
         "baseui": "^8.10.0",
         "gatsby": "^2.13.39",
+        "gatsby-cli": "^2.7.19",
         "gatsby-plugin-styletron": "^4.1.2",
         "gatsby-source-contentful": "^2.0.71",
         "react": "^16.8.6",

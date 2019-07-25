@@ -1,11 +1,5 @@
 module.exports = {
     plugins: [
-        // {
-        //     resolve: 'gatsby-plugin-styletron',
-        //     options: {
-        //         prefix: '_',
-        //     },
-        // },
         {
             resolve: 'gatsby-source-contentful',
             options: {
