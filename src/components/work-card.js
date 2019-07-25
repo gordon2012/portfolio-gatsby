@@ -17,6 +17,18 @@ import {
 } from 'baseui/modal';
 import { documentToReactComponents } from '@contentful/rich-text-react-renderer';
 
+import Link from './link';
+
+// import { Link as UnstyledLink } from './link';
+// const Link = props => (
+//     <UnstyledLink
+//         {...props}
+//         $style={{
+//             color: 'white',
+//         }}
+//     />
+// );
+
 const Image = styled('img', {});
 
 const Debug = ({ title, tabsize = 2, children }) => (
@@ -92,24 +104,71 @@ const WorkCard = ({ work }) => {
                 </Block>
             </Card>
 
-            <Modal size="full" onClose={() => setOpen(false)} isOpen={isOpen}>
+            <Modal
+                size="full"
+                onClose={() => setOpen(false)}
+                isOpen={isOpen}
+                display="flex"
+                flexDirection="column"
+                overrides={{
+                    Root: {
+                        style: {
+                            // border: '3px solid magenta',
+                            // paddingTop: '10vh',
+                            // paddingRight: '10vw',
+                            // paddingBottom: '10vh',
+                            // paddingLeft: '10vw',
+                        },
+                    },
+                    Dialog: {
+                        style: {
+                            // border: '3px solid red',
+                            // marginTop: '-1rem',
+                            // marginBottom: '-20vh',
+
+                            marginTop: '10vh',
+                            marginRight: '10vw',
+                            marginBottom: '10vh',
+                            marginLeft: '10vw',
+
+                            display: 'flex',
+                            flexDirection: 'column',
+                        },
+                    },
+                }}
+            >
+                {/* <Block flex="1" $style={{ border: '3px solid red' }}>
+                    Buttons
+                </Block> */}
                 <FocusOnce>
                     <ModalHeader>{work.title}</ModalHeader>
                 </FocusOnce>
-                <ModalBody>
+                <ModalBody $style={{ border: '3px solid magenta', flex: '1' }}>
                     {documentToReactComponents(work.body.json)}
 
-                    <Debug title="skills">{work.skills}</Debug>
-                    <Debug title="images">{work.images}</Debug>
+                    {/* <Debug title="skills">{work.skills}</Debug> */}
+                    {/* <Debug title="images">{work.images}</Debug> */}
                     <Debug title="links">{work.links}</Debug>
+
+                    <Block $style={{ border: '3px solid red' }}>Buttons</Block>
                 </ModalBody>
                 <ModalFooter>
-                    <ModalButton onClick={() => setOpen(false)}>
+                    <ModalButton autoFocus onClick={() => setOpen(false)}>
                         Close
                     </ModalButton>
-                    <ModalButton autoFocus onClick={() => setOpen(false)}>
-                        Confirm
-                    </ModalButton>
+                    {work.links.map((link, i) => (
+                        <ModalButton key={i}>
+                            <Link
+                                to={link.url}
+                                $style={{
+                                    color: 'white',
+                                    textDecoration: 'none',
+                                }}
+                            >
+                                {link.title}
+                            </Link>
+                        </ModalButton>
+                    ))}
                 </ModalFooter>
             </Modal>
         </>
