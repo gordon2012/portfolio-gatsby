@@ -6,8 +6,19 @@ import { FlexGrid, FlexGridItem } from 'baseui/flex-grid';
 import Layout from '../components/layout';
 import Container from '../components/container';
 import WorkCard from '../components/work-card';
+import WorkModal from '../components/work-modal';
 
-export default () => {
+const WorkItem = ({ work }) => {
+    const [isOpen, setOpen] = React.useState(false);
+    return (
+        <>
+            <WorkCard work={work} setOpen={setOpen} />
+            <WorkModal work={work} isOpen={isOpen} setOpen={setOpen} />
+        </>
+    );
+};
+
+const WorkPage = () => {
     const data = useStaticQuery(graphql`
         query {
             allContentfulProject(
@@ -59,16 +70,11 @@ export default () => {
         <Layout backgroundColor="#ddd">
             <T.H2 $style={{ textAlign: 'center' }}>My Work</T.H2>
 
-            <Container
-                width="1200px"
-                padding="0 2rem 2rem"
-                $style={{ border: '0px solid red' }}
-            >
+            <Container width="1200px" padding="0 2rem 2rem">
                 {categories.map(category => (
                     <React.Fragment key={category.name}>
                         <T.H4>{category.name}</T.H4>
                         <FlexGrid
-                            $style={{ border: '0px solid magenta' }}
                             padding="0rem"
                             flexGridColumnCount={[1, 1, 2, 3]}
                             flexGridColumnGap="2rem"
@@ -76,7 +82,7 @@ export default () => {
                         >
                             {category.projects.map((project, i) => (
                                 <FlexGridItem key={i}>
-                                    <WorkCard work={project} />
+                                    <WorkItem work={project} />
                                 </FlexGridItem>
                             ))}
                         </FlexGrid>
@@ -86,3 +92,5 @@ export default () => {
         </Layout>
     );
 };
+
+export default WorkPage;

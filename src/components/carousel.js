@@ -1,12 +1,6 @@
 import React, { useState } from 'react';
-import { styled } from 'baseui';
 import { Block } from 'baseui/block';
-
-const Image = styled('img', {
-    display: 'block',
-    width: '100%',
-    boxShadow: '0 1px 4px hsla(0, 0%, 0%, 0.16)',
-});
+import Image from './image';
 
 const Greyout = () => {
     return (
@@ -28,16 +22,9 @@ const Greyout = () => {
 
 const Carousel = ({ images }) => {
     const [selected, setSelected] = useState(0);
-
-    const border = 0;
-
     return (
-        <Block display="flex" $style={{ border: `${border}px solid red` }}>
-            <Block
-                flex="5"
-                paddingRight="1rem"
-                $style={{ border: `${border}px solid magenta` }}
-            >
+        <Block display="flex">
+            <Block flex="5" paddingRight="1rem">
                 <Image src={images[selected].file.url} />
             </Block>
             <Block flex="1">
