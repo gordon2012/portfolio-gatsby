@@ -10,8 +10,13 @@ import { Modal, ModalHeader, ModalBody, FocusOnce } from 'baseui/modal';
 import { documentToReactComponents } from '@contentful/rich-text-react-renderer';
 
 import Link from './link';
+import Carousel from './carousel';
 
-const Image = styled('img', {});
+const Image = styled('img', {
+    display: 'block',
+    width: '100%',
+    boxShadow: '0 1px 4px hsla(0, 0%, 0%, 0.16)',
+});
 
 const Debug = ({ title, tabsize = 2, children }) => (
     <Card $style={{ marginBottom: '1rem' }}>
@@ -63,14 +68,7 @@ const WorkCard = ({ work }) => {
                     ))}
                 </Block>
                 <Block padding="0.5rem">
-                    <Image
-                        src={work.images[0].file.url}
-                        $style={{
-                            objectFit: 'contain',
-                            maxWidth: '100%',
-                            display: 'block',
-                        }}
-                    />
+                    <Image src={work.images[0].file.url} />
                 </Block>
                 <Block padding="0" marginBottom="-16px">
                     <Button
@@ -87,7 +85,7 @@ const WorkCard = ({ work }) => {
             </Card>
 
             <Modal
-                size="full"
+                size="auto"
                 onClose={() => setOpen(false)}
                 isOpen={isOpen}
                 display="flex"
@@ -95,9 +93,9 @@ const WorkCard = ({ work }) => {
                 overrides={{
                     Root: {
                         style: {
-                            paddingTop: '10vh',
+                            paddingTop: '1rem',
                             paddingRight: '10vw',
-                            paddingBottom: '10vh',
+                            paddingBottom: '1rem',
                             paddingLeft: '10vw',
                         },
                     },
@@ -105,6 +103,7 @@ const WorkCard = ({ work }) => {
                         style: {
                             display: 'flex',
                             flexDirection: 'column',
+                            width: '100%',
                         },
                     },
                 }}
@@ -113,13 +112,30 @@ const WorkCard = ({ work }) => {
                     <ModalHeader>{work.title}</ModalHeader>
                 </FocusOnce>
                 <ModalBody $style={{ flex: '1' }}>
-                    {documentToReactComponents(work.body.json)}
+                    <Block
+                        maxWidth="800px"
+                        margin="0 auto"
+                        paddingBottom="2rem"
+                    >
+                        {documentToReactComponents(work.body.json)}
+                    </Block>
 
-                    {/* <Debug title="skills">{work.skills}</Debug> */}
-                    <Debug title="images">{work.images}</Debug>
-                    {/* <Debug title="links">{work.links}</Debug> */}
+                    {/* <Debug title="skills">{work.skills}</Debug>
+                    <Debug title="links">{work.links}</Debug>
+                    <Debug title="images">{work.images}</Debug> */}
 
-                    <Block>Buttons</Block>
+                    {work.images.length > 1 ? (
+                        <Block maxWidth="800px" margin="0 auto">
+                            <Carousel images={work.images} />
+                        </Block>
+                    ) : (
+                        <Block maxWidth="600px" margin="0 auto">
+                            <Image
+                                src={work.images[0].file.url}
+                                alt={work.images[0].title}
+                            />
+                        </Block>
+                    )}
                 </ModalBody>
                 <Block
                     display={['block', 'flex']}
