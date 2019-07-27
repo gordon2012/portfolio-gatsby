@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { graphql, useStaticQuery } from 'gatsby';
 import * as T from 'baseui/typography';
 import { FlexGrid, FlexGridItem } from 'baseui/flex-grid';
@@ -8,8 +8,12 @@ import Container from '../components/container';
 import WorkCard from '../components/work-card';
 import WorkModal from '../components/work-modal';
 
+import { Block } from 'baseui/block';
+import { Tag } from 'baseui/tag';
+
 const WorkItem = ({ work }) => {
-    const [isOpen, setOpen] = React.useState(false);
+    const [isOpen, setOpen] = useState(false);
+
     return (
         <>
             <WorkCard work={work} setOpen={setOpen} />
@@ -66,12 +70,60 @@ const WorkPage = () => {
         };
     });
 
+    const skills = Array.from(
+        new Set(
+            categories
+                .map(category =>
+                    category.projects.map(project => project.skills)
+                )
+                .flat(2)
+        )
+    ).sort();
+
+    const [filter, setFilter] = useState('');
+
     return (
         <Layout backgroundColor="#ddd">
             <T.H2 $style={{ textAlign: 'center' }}>My Work</T.H2>
-
             <Container width="1200px" padding="0 2rem 2rem">
-                {categories.map(category => (
+                <Block $style={{ textAlign: 'center' }}>
+                    <Tag
+                        closeable={false}
+                        kind="primary"
+                        variant={filter === '' ? 'solid' : 'outlined'}
+                        onClick={() => setFilter('')}
+                        isFocused
+                    >
+                        ALL
+                    </Tag>
+                    {skills.map(skill => (
+                        <Tag
+                            key={skill}
+                            closeable={false}
+                            kind="negative"
+                            variant={filter === skill ? 'solid' : 'outlined'}
+                            onClick={() => setFilter(skill)}
+                        >
+                            {skill}
+                        </Tag>
+                    ))}
+                </Block>
+
+                {(filter
+                    ? categories
+                          .filter(c =>
+                              c.projects.some(p =>
+                                  p.skills.some(s => s === filter)
+                              )
+                          )
+                          .map(c => ({
+                              ...c,
+                              projects: c.projects.filter(p =>
+                                  p.skills.some(s => s === filter)
+                              ),
+                          }))
+                    : categories
+                ).map(category => (
                     <React.Fragment key={category.name}>
                         <T.H4>{category.name}</T.H4>
                         <FlexGrid
