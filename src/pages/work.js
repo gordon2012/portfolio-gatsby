@@ -11,13 +11,19 @@ import WorkModal from '../components/work-modal';
 
 import { Block } from 'baseui/block';
 import { Tag } from 'baseui/tag';
+import { Card } from 'baseui/card';
 
-const WorkItem = ({ work }) => {
+const WorkItem = ({ work, filter, setFilter }) => {
     const [isOpen, setOpen] = useState(false);
 
     return (
         <>
-            <WorkCard work={work} setOpen={setOpen} />
+            <WorkCard
+                work={work}
+                setOpen={setOpen}
+                filter={filter}
+                setFilter={setFilter}
+            />
             <WorkModal work={work} isOpen={isOpen} setOpen={setOpen} />
         </>
     );
@@ -86,30 +92,49 @@ const WorkPage = () => {
     return (
         <Layout backgroundColor="#ddd">
             <T.H2 $style={{ textAlign: 'center' }}>My Work</T.H2>
-            <Container width="1200px" padding="0 2rem 2rem">
-                <Block $style={{ textAlign: 'center' }}>
-                    <Tag
-                        closeable={false}
-                        kind="primary"
-                        variant={filter === '' ? 'solid' : 'outlined'}
-                        onClick={() => setFilter('')}
-                        isFocused
-                    >
-                        ALL
-                    </Tag>
-                    {skills.map(skill => (
-                        <Tag
-                            key={skill}
-                            closeable={false}
-                            kind="negative"
-                            variant={filter === skill ? 'solid' : 'outlined'}
-                            onClick={() => setFilter(skill)}
-                        >
-                            {skill}
-                        </Tag>
-                    ))}
-                </Block>
 
+            <Container width="600px" padding="0 2rem 2rem">
+                <Card>
+                    <T.H5>Filter by Skill:</T.H5>
+                    <Block
+                        $style={{
+                            textAlign: 'center',
+                            border: '0px solid red',
+                        }}
+                    >
+                        <Tag
+                            closeable={false}
+                            kind="primary"
+                            variant={filter === '' ? 'solid' : 'outlined'}
+                            onClick={filter === '' ? null : () => setFilter('')}
+                            isFocused
+                        >
+                            ALL
+                        </Tag>
+                        {skills.map(skill => (
+                            <Tag
+                                key={skill}
+                                closeable={false}
+                                kind="negative"
+                                variant={
+                                    filter === skill || filter === ''
+                                        ? 'solid'
+                                        : 'outlined'
+                                }
+                                onClick={
+                                    filter === skill
+                                        ? null
+                                        : () => setFilter(skill)
+                                }
+                            >
+                                {skill}
+                            </Tag>
+                        ))}
+                    </Block>
+                </Card>
+            </Container>
+
+            <Container width="1200px" padding="0 2rem 2rem">
                 {(filter
                     ? categories
                           .filter(c =>
@@ -135,7 +160,11 @@ const WorkPage = () => {
                         >
                             {category.projects.map((project, i) => (
                                 <FlexGridItem key={i}>
-                                    <WorkItem work={project} />
+                                    <WorkItem
+                                        work={project}
+                                        filter={filter}
+                                        setFilter={setFilter}
+                                    />
                                 </FlexGridItem>
                             ))}
                         </FlexGrid>

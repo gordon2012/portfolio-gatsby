@@ -8,7 +8,7 @@ import Search from 'baseui/icon/search';
 
 import Image from './image';
 
-const WorkCard = ({ work, setOpen }) => {
+const WorkCard = ({ work, setOpen, filter, setFilter }) => {
     return (
         <Card
             overrides={{
@@ -39,6 +39,14 @@ const WorkCard = ({ work, setOpen }) => {
                         closeable={false}
                         kind="negative"
                         variant="solid"
+                        variant={
+                            filter === skill || filter === ''
+                                ? 'solid'
+                                : 'light'
+                        }
+                        onClick={
+                            filter === skill ? null : () => setFilter(skill)
+                        }
                     >
                         {skill}
                     </Tag>
