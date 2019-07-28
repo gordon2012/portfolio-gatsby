@@ -19,6 +19,7 @@
     "dependencies": {
         "@babel/core": "^7.5.5",
         "@contentful/rich-text-react-renderer": "^13.2.0",
+        "array-flat-polyfill": "^1.0.1",
         "babel-loader": "^8.0.6",
         "baseui": "^8.10.0",
         "gatsby": "^2.13.39",

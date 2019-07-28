@@ -1,3 +1,4 @@
+import 'array-flat-polyfill';
 import React, { useState } from 'react';
 import { graphql, useStaticQuery } from 'gatsby';
 import * as T from 'baseui/typography';
