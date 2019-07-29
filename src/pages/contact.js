@@ -5,10 +5,12 @@ import * as T from 'baseui/typography';
 import Container from '../components/container';
 import { Block } from 'baseui/block';
 import { Card } from 'baseui/card';
-import { Input } from 'baseui/input';
+import { StatefulInput, StyledInputContainer, SIZE } from 'baseui/input';
 import Debug from '../components/debug';
 import { Button } from 'baseui/button';
 import { navigate } from 'gatsby';
+import { FlexGrid, FlexGridItem } from 'baseui/flex-grid';
+import { withStyle } from 'styletron-react';
 
 const b = color => ({
     $style: {
@@ -18,12 +20,14 @@ const b = color => ({
 
 const FormInput = ({ name, label, onChange }) => {
     return (
-        <Block paddingBottom="1rem">
-            <label>
-                {label}
-                <Input name={name} onChange={onChange} />
-            </label>
-        </Block>
+        <label>
+            <T.Label2>{label}</T.Label2>
+            <StatefulInput
+                name={name}
+                onChange={onChange}
+                size={SIZE.compact}
+            />
+        </label>
     );
 };
 
@@ -46,18 +50,6 @@ const ContactPage = () => {
         event.preventDefault();
         const form = event.target;
 
-        // console.log(
-        //     encode({
-        //         'form-name': form.getAttribute('name'),
-        //         ...inputs,
-        //     })
-        // );
-
-        // console.log(inputs);
-
-        // console.log(Object.entries(inputs));
-
-        // return;
         fetch('/', {
             method: 'POST',
             headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
@@ -70,16 +62,13 @@ const ContactPage = () => {
             .catch(error => console.error(error));
     };
 
-    // const FormInput = props => (
-    //     <BaseFormInput onChange={handleChange} {...props} />
-    // );
-    // const FormInput = FormInput();
-
     return (
         <Layout backgroundColor="#ddd">
             <T.H2 $style={{ textAlign: 'center' }}>Contact Me</T.H2>
 
-            <Container width="1200px" padding="0 2rem 2rem">
+            <Container width="1000px" padding="0 2rem 2rem">
+                <Block backgroundColor={['red', 'blue', 'lime']}>&nbsp;</Block>
+                <br />
                 <Card>
                     <form
                         name="contact"
@@ -90,21 +79,40 @@ const ContactPage = () => {
                         onSubmit={handleSubmit}
                     >
                         <input type="hidden" name="form-name" value="contact" />
-                        {[
-                            { name: 'firstName', label: 'First Name' },
-                            { name: 'lastName', label: 'Last Name' },
-                            { name: 'email', label: 'Email' },
-                        ].map(({ name, label }) => (
-                            <FormInput
-                                key={name}
-                                name={name}
-                                label={label}
-                                onChange={handleChange}
-                            />
-                        ))}
-                        <input type="submit" />
+                        <FlexGrid
+                            flexGridColumnCount={[1, 1, 2]}
+                            flexGridColumnGap="1rem"
+                            flexGridRowGap="1rem"
+                        >
+                            {[
+                                { name: 'firstName', label: 'First Name' },
+                                { name: 'lastName', label: 'Last Name' },
+                                { name: 'email', label: 'Email' },
+                            ].map(({ name, label }) => (
+                                <FlexGridItem key={name}>
+                                    <FormInput
+                                        name={name}
+                                        label={label}
+                                        onChange={handleChange}
+                                    />
+                                </FlexGridItem>
+                            ))}
+                        </FlexGrid>
+                        <FlexGrid flexGridColumnCount={4}>
+                            <FlexGridItem />
+                            <FlexGridItem flexGridColumnCount={3}>
+                                <Button
+                                    type="submit"
+                                    $style={{
+                                        width: '100%',
+                                        marginTop: '1rem',
+                                    }}
+                                >
+                                    Submit
+                                </Button>
+                            </FlexGridItem>
+                        </FlexGrid>
                     </form>
-                    {/* <Button type="submit">Submit</Button> */}
                 </Card>
 
                 <br />
