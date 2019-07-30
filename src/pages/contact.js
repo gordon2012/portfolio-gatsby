@@ -12,22 +12,62 @@ import { navigate } from 'gatsby';
 import { FlexGrid, FlexGridItem } from 'baseui/flex-grid';
 import { withStyle } from 'styletron-react';
 
+import { Checkbox } from 'baseui/checkbox';
+import { StatefulTextarea as Textarea } from 'baseui/textarea';
+
 const b = color => ({
     $style: {
         border: `3px solid ${color}`,
     },
 });
 
-const FormInput = ({ name, label, onChange }) => {
+const Input = ({ type = 'text', name, children, onChange, ...props }) => {
+    // let Element;
+    // switch(type) {
+
+    // }
+
+    // const Element = () => {
+    //     switch (type) {
+    //         case 'checkbox':
+    //             return (
+    //                 <>
+    //                     <T.Label2>&nbsp;</T.Label2>
+    //                     <Checkbox
+    //                         name={name}
+    //                         // checked={inputs[name]}
+    //                         onChange={onChange}
+    //                     >
+    //                         {children}
+    //                     </Checkbox>
+    //                 </>
+    //             );
+    //             break;
+    //         case 'textarea':
+    //             return <Textarea />;
+    //             break;
+    //         default:
+    //             return (
+    //                 <StatefulInput
+    //                     key={name}
+    //                     name={name}
+    //                     onChange={onChange}
+    //                     size={SIZE.compact}
+    //                 />
+    //             );
+    //             break;
+    //     }
+    // };
+
     return (
-        <label>
-            <T.Label2>{label}</T.Label2>
+        <Block as="label" {...props}>
+            <T.Label2>{children}</T.Label2>
             <StatefulInput
                 name={name}
                 onChange={onChange}
                 size={SIZE.compact}
             />
-        </label>
+        </Block>
     );
 };
 
@@ -46,6 +86,14 @@ const ContactPage = () => {
         setInputs(inputs => ({ ...inputs, [name]: value }));
     };
 
+    const handleCheck = ({ target: { name } }) => {
+        // const new
+
+        setInputs(inputs => ({ ...inputs, [name]: inputs[name] ? '' : 'Yes' }));
+
+        // console.log(!event.target.value);
+    };
+
     const handleSubmit = event => {
         event.preventDefault();
         const form = event.target;
@@ -62,6 +110,22 @@ const ContactPage = () => {
             .catch(error => console.error(error));
     };
 
+    // const withChange = Component => props => (
+    //     <Component {...props} onChange={handleChange} />
+    // );
+
+    // const withFlexGridItem = Component => props => (
+    //     <FlexGridItem>
+    //         <Component {...props} />
+    //     </FlexGridItem>
+    // );
+
+    // const Input = withFlexGridItem(FormInput);
+
+    // const Input = props => {
+    //     return <FormInput onChange={handleChange} {...props} />;
+    // };
+
     return (
         <Layout backgroundColor="#ddd">
             <T.H2 $style={{ textAlign: 'center' }}>Contact Me</T.H2>
@@ -71,6 +135,7 @@ const ContactPage = () => {
                 <br />
                 <Card>
                     <form
+                        key="form"
                         name="contact"
                         method="post"
                         action="/thankyou/"
@@ -79,39 +144,58 @@ const ContactPage = () => {
                         onSubmit={handleSubmit}
                     >
                         <input type="hidden" name="form-name" value="contact" />
-                        <FlexGrid
+
+                        {/* <FlexGrid
                             flexGridColumnCount={[1, 1, 2]}
                             flexGridColumnGap="1rem"
                             flexGridRowGap="1rem"
+                        > */}
+                        <Block
+                            display="grid"
+                            gridTemplateColumns="1fr 1fr"
+                            gridGap="1rem"
                         >
-                            {[
-                                { name: 'firstName', label: 'First Name' },
-                                { name: 'lastName', label: 'Last Name' },
-                                { name: 'email', label: 'Email' },
-                            ].map(({ name, label }) => (
-                                <FlexGridItem key={name}>
-                                    <FormInput
-                                        name={name}
-                                        label={label}
-                                        onChange={handleChange}
-                                    />
-                                </FlexGridItem>
-                            ))}
-                        </FlexGrid>
-                        <FlexGrid flexGridColumnCount={4}>
-                            <FlexGridItem />
-                            <FlexGridItem flexGridColumnCount={3}>
-                                <Button
-                                    type="submit"
-                                    $style={{
-                                        width: '100%',
-                                        marginTop: '1rem',
-                                    }}
+                            <Input name="firstName" onChange={handleChange}>
+                                First Name
+                            </Input>
+
+                            <Input name="lastName" onChange={handleChange}>
+                                Last Name
+                            </Input>
+
+                            <Input name="email" onChange={handleChange}>
+                                Email
+                            </Input>
+
+                            <FlexGridItem>
+                                <T.Label2>&nbsp;</T.Label2>
+                                <Checkbox
+                                    name="newsletter"
+                                    checked={inputs.newsletter}
+                                    onChange={handleCheck}
                                 >
-                                    Submit
-                                </Button>
+                                    Yes! Subscribe me to your Newsletter.
+                                </Checkbox>
                             </FlexGridItem>
-                        </FlexGrid>
+
+                            <FlexGridItem>
+                                <T.Label2>Message</T.Label2>
+                                <Textarea />
+                            </FlexGridItem>
+                            {/* </FlexGrid> */}
+                        </Block>
+
+                        <Block $style={{ textAlign: 'center' }}>
+                            <Button
+                                type="submit"
+                                $style={{
+                                    // width: '100%',
+                                    marginTop: '1rem',
+                                }}
+                            >
+                                Submit
+                            </Button>
+                        </Block>
                     </form>
                 </Card>
 
