@@ -19,6 +19,10 @@
     "dependencies": {
         "@babel/core": "^7.5.5",
         "@contentful/rich-text-react-renderer": "^13.2.0",
+        "@fortawesome/fontawesome-svg-core": "^1.2.21",
+        "@fortawesome/free-brands-svg-icons": "^5.10.1",
+        "@fortawesome/free-solid-svg-icons": "^5.10.1",
+        "@fortawesome/react-fontawesome": "^0.1.4",
         "array-flat-polyfill": "^1.0.1",
         "babel-loader": "^8.0.6",
         "baseui": "^8.10.0",

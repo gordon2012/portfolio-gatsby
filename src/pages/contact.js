@@ -1,71 +1,52 @@
 import React, { useState } from 'react';
-import Layout from '../components/layout';
-
-import * as T from 'baseui/typography';
-import Container from '../components/container';
-import { Block } from 'baseui/block';
-import { Card } from 'baseui/card';
-import { StatefulInput, StyledInputContainer, SIZE } from 'baseui/input';
-import Debug from '../components/debug';
-import { Button } from 'baseui/button';
 import { navigate } from 'gatsby';
-import { FlexGrid, FlexGridItem } from 'baseui/flex-grid';
-import { withStyle } from 'styletron-react';
-
+import { Block } from 'baseui/block';
+import * as T from 'baseui/typography';
+import { Card } from 'baseui/card';
+import { StatefulInput } from 'baseui/input';
+import { Button } from 'baseui/button';
 import { Checkbox } from 'baseui/checkbox';
-import { StatefulTextarea as Textarea } from 'baseui/textarea';
+import { StatefulTextarea } from 'baseui/textarea';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-const b = color => ({
-    $style: {
-        border: `3px solid ${color}`,
-    },
-});
+import Layout from '../components/layout';
+import Container from '../components/container';
+import Link from '../components/link';
 
-const Input = ({ type = 'text', name, children, onChange, ...props }) => {
-    // let Element;
-    // switch(type) {
-
-    // }
-
-    // const Element = () => {
-    //     switch (type) {
-    //         case 'checkbox':
-    //             return (
-    //                 <>
-    //                     <T.Label2>&nbsp;</T.Label2>
-    //                     <Checkbox
-    //                         name={name}
-    //                         // checked={inputs[name]}
-    //                         onChange={onChange}
-    //                     >
-    //                         {children}
-    //                     </Checkbox>
-    //                 </>
-    //             );
-    //             break;
-    //         case 'textarea':
-    //             return <Textarea />;
-    //             break;
-    //         default:
-    //             return (
-    //                 <StatefulInput
-    //                     key={name}
-    //                     name={name}
-    //                     onChange={onChange}
-    //                     size={SIZE.compact}
-    //                 />
-    //             );
-    //             break;
-    //     }
-    // };
-
+const Input = ({ name, children, onChange, ...props }) => {
     return (
         <Block as="label" {...props}>
             <T.Label2>{children}</T.Label2>
-            <StatefulInput
+            <StatefulInput name={name} onChange={onChange} size="compact" />
+        </Block>
+    );
+};
+
+const CheckInput = ({ name, children, onChange, checked, ...props }) => {
+    return (
+        <Block as="label" {...props}>
+            <Checkbox name={name} checked={checked} onChange={onChange}>
+                {children}
+            </Checkbox>
+        </Block>
+    );
+};
+
+const Textarea = ({ name, children, onChange, height = 1, ...props }) => {
+    return (
+        <Block as="label" {...props}>
+            <T.Label2>{children}</T.Label2>
+            <StatefulTextarea
                 name={name}
                 onChange={onChange}
-                size={SIZE.compact}
+                size="compact"
+                overrides={{
+                    Input: {
+                        style: {
+                            height: `${(height + 3) * 20}px`,
+                        },
+                    },
+                }}
             />
         </Block>
     );
@@ -87,11 +68,7 @@ const ContactPage = () => {
     };
 
     const handleCheck = ({ target: { name } }) => {
-        // const new
-
         setInputs(inputs => ({ ...inputs, [name]: inputs[name] ? '' : 'Yes' }));
-
-        // console.log(!event.target.value);
     };
 
     const handleSubmit = event => {
@@ -110,100 +87,146 @@ const ContactPage = () => {
             .catch(error => console.error(error));
     };
 
-    // const withChange = Component => props => (
-    //     <Component {...props} onChange={handleChange} />
-    // );
-
-    // const withFlexGridItem = Component => props => (
-    //     <FlexGridItem>
-    //         <Component {...props} />
-    //     </FlexGridItem>
-    // );
-
-    // const Input = withFlexGridItem(FormInput);
-
-    // const Input = props => {
-    //     return <FormInput onChange={handleChange} {...props} />;
-    // };
-
     return (
         <Layout backgroundColor="#ddd">
             <T.H2 $style={{ textAlign: 'center' }}>Contact Me</T.H2>
 
-            <Container width="1000px" padding="0 2rem 2rem">
-                <Block backgroundColor={['red', 'blue', 'lime']}>&nbsp;</Block>
-                <br />
-                <Card>
-                    <form
-                        key="form"
-                        name="contact"
-                        method="post"
-                        action="/thankyou/"
-                        data-netlify="true"
-                        data-netlify-honeypot="bot-field"
-                        onSubmit={handleSubmit}
-                    >
-                        <input type="hidden" name="form-name" value="contact" />
-
-                        {/* <FlexGrid
-                            flexGridColumnCount={[1, 1, 2]}
-                            flexGridColumnGap="1rem"
-                            flexGridRowGap="1rem"
-                        > */}
-                        <Block
-                            display="grid"
-                            gridTemplateColumns="1fr 1fr"
-                            gridGap="1rem"
-                        >
-                            <Input name="firstName" onChange={handleChange}>
-                                First Name
-                            </Input>
-
-                            <Input name="lastName" onChange={handleChange}>
-                                Last Name
-                            </Input>
-
-                            <Input name="email" onChange={handleChange}>
-                                Email
-                            </Input>
-
-                            <FlexGridItem>
-                                <T.Label2>&nbsp;</T.Label2>
-                                <Checkbox
-                                    name="newsletter"
-                                    checked={inputs.newsletter}
-                                    onChange={handleCheck}
-                                >
-                                    Yes! Subscribe me to your Newsletter.
-                                </Checkbox>
-                            </FlexGridItem>
-
-                            <FlexGridItem>
-                                <T.Label2>Message</T.Label2>
-                                <Textarea />
-                            </FlexGridItem>
-                            {/* </FlexGrid> */}
-                        </Block>
-
-                        <Block $style={{ textAlign: 'center' }}>
-                            <Button
-                                type="submit"
-                                $style={{
-                                    // width: '100%',
-                                    marginTop: '1rem',
-                                }}
+            <Container width="1200px" padding="0 2rem 2rem">
+                <Block
+                    display="grid"
+                    gridTemplateColumns={['1fr', '1fr', '3fr 7fr']}
+                    gridGap="2rem"
+                >
+                    <Block>
+                        <Card>
+                            <T.H5 $style={{ textAlign: 'center' }}>
+                                Find me on Social Media
+                            </T.H5>
+                            <Block
+                                display="grid"
+                                gridTemplateColumns={[
+                                    '1fr',
+                                    '1fr 1fr 1fr 1fr',
+                                    '1fr',
+                                ]}
+                                gridGap="1rem"
                             >
-                                Submit
-                            </Button>
-                        </Block>
-                    </form>
-                </Card>
+                                {[
+                                    ['github', 'https://github.com/gordon2012'],
+                                    [
+                                        'linkedin',
+                                        'https://www.linkedin.com/in/gordon-doskas',
+                                    ],
+                                    [
+                                        'twitter',
+                                        'https://twitter.com/gordondoskas',
+                                    ],
+                                    ['facebook', 'https://facebook.com'],
+                                ].map(([icon, url]) => (
+                                    <Block
+                                        key={icon}
+                                        flex="1"
+                                        display="flex"
+                                        justifyContent="center"
+                                    >
+                                        <Link
+                                            to={url}
+                                            target="_blank"
+                                            rel="noreferrer noopener"
+                                        >
+                                            <Button shape="round" size="large">
+                                                <FontAwesomeIcon
+                                                    icon={['fab', icon]}
+                                                    size="3x"
+                                                />
+                                            </Button>
+                                        </Link>
+                                    </Block>
+                                ))}
+                            </Block>
+                        </Card>
+                    </Block>
 
-                <br />
+                    <Block>
+                        <Card>
+                            <T.H4 $style={{ textAlign: 'center' }}>
+                                Send me a Note
+                            </T.H4>
+                            <form
+                                key="form"
+                                name="contact"
+                                method="post"
+                                action="/thankyou/"
+                                data-netlify="true"
+                                data-netlify-honeypot="bot-field"
+                                onSubmit={handleSubmit}
+                            >
+                                <input
+                                    type="hidden"
+                                    name="form-name"
+                                    value="contact"
+                                />
 
-                <Card>
-                    <Debug data={inputs} />
-                </Card>
+                                <Block
+                                    display="grid"
+                                    gridTemplateColumns="1fr 1fr"
+                                    gridGap="1rem"
+                                >
+                                    <Input
+                                        name="firstName"
+                                        onChange={handleChange}
+                                        gridColumn={['span 2', 'span 1']}
+                                    >
+                                        First Name
+                                    </Input>
+
+                                    <Input
+                                        name="email"
+                                        onChange={handleChange}
+                                        gridColumn={['span 2', 'span 1']}
+                                    >
+                                        Email
+                                    </Input>
+
+                                    <Textarea
+                                        name="message"
+                                        onChange={handleChange}
+                                        height={
+                                            inputs.message
+                                                ? inputs.message.split('\n')
+                                                      .length
+                                                : 1
+                                        }
+                                        gridColumn="span 2"
+                                    >
+                                        Message
+                                    </Textarea>
+
+                                    <CheckInput
+                                        name="newsletter"
+                                        onChange={handleCheck}
+                                        checked={inputs.newsletter}
+                                        gridColumn="span 2"
+                                    >
+                                        Yes! Subscribe me to your Newsletter.
+                                    </CheckInput>
+                                </Block>
+
+                                <Block $style={{ textAlign: 'center' }}>
+                                    <Button
+                                        type="submit"
+                                        $style={{
+                                            width: '100%',
+                                            marginTop: '1rem',
+                                        }}
+                                    >
+                                        Submit
+                                    </Button>
+                                </Block>
+                            </form>
+                        </Card>
+                    </Block>
+                </Block>
             </Container>
         </Layout>
     );
