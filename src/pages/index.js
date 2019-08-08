@@ -1,18 +1,14 @@
 import React from 'react';
-import Layout from '../components/layout';
-
-import skyDarkImg from '../images/sky-dark.jpg';
 import { Block } from 'baseui/block';
 import * as T from 'baseui/typography';
 import { Button, KIND, SIZE, SHAPE } from 'baseui/button';
-import { Link as UnstyledLink } from '../components/link';
-import { styled } from 'baseui';
+import { useStyletron } from 'baseui';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-const Link = styled(UnstyledLink, {
-    textDecoration: 'none',
-});
+import Layout from '../components/layout';
+import UnstyledLink from '../components/link';
 
-// const
+import skyDarkImg from '../images/sky-dark.jpg';
 
 const GhostButton = ({ children }) => {
     return (
@@ -22,7 +18,7 @@ const GhostButton = ({ children }) => {
             shape={SHAPE.default}
             overrides={{
                 BaseButton: {
-                    style: ({ $isSelected }) => {
+                    style: () => {
                         return {
                             outline: 'white solid',
                             backgroundColor: 'transparent',
@@ -34,7 +30,6 @@ const GhostButton = ({ children }) => {
                             ':focus': {
                                 color: 'black',
                                 backgroundColor: 'white',
-                                // backgroundColor: 'transparent',
                             },
                         };
                     },
@@ -47,6 +42,19 @@ const GhostButton = ({ children }) => {
 };
 
 const IndexPage = () => {
+    const [css, theme] = useStyletron();
+
+    const Link = ({ children, ...props }) => {
+        return (
+            <UnstyledLink
+                className={css({ textDecoration: 'none' })}
+                {...props}
+            >
+                {children}
+            </UnstyledLink>
+        );
+    };
+
     return (
         <Layout display="flex" flexDirection="column">
             <Block
@@ -66,7 +74,6 @@ const IndexPage = () => {
                         padding="1rem"
                         display="flex"
                         flexDirection={['column', 'column', 'row']}
-                        $style={{ border: '3px solid red' }}
                     >
                         <Block
                             flex="1"
@@ -75,7 +82,6 @@ const IndexPage = () => {
                             justifyContent="center"
                             alignItems={['center', 'center', 'flex-start']}
                             $style={{
-                                border: '3px solid magenta',
                                 textAlign: 'left',
                             }}
                         >
@@ -91,17 +97,56 @@ const IndexPage = () => {
                             flexDirection="column"
                             justifyContent="center"
                             alignItems={['center', 'center', 'flex-start']}
-                            $style={{ border: '3px solid lime' }}
                         >
-                            <T.H5 color="white">
+                            <T.H5 color="white" margin="0.5rem 0">
                                 I am a <strong>Web Developer</strong>
                             </T.H5>
-                            <T.H5 color="white">
+                            <T.H5 color="white" margin="0.5rem 0">
                                 Check out my{' '}
                                 <Link to="/work">
+                                    &nbsp;
                                     <GhostButton>Projects</GhostButton>
                                 </Link>
                             </T.H5>
+                            <T.H5 color="white" marginBottom="0.5rem">
+                                Find me on Social Media:
+                            </T.H5>
+                            <Block
+                                display="grid"
+                                gridTemplateColumns={[
+                                    '1fr 1fr',
+                                    '1fr 1fr 1fr 1fr',
+                                ]}
+                                gridGap="1rem"
+                            >
+                                {[
+                                    ['github', 'https://github.com/gordon2012'],
+                                    [
+                                        'linkedin',
+                                        'https://www.linkedin.com/in/gordon-doskas',
+                                    ],
+                                    [
+                                        'twitter',
+                                        'https://twitter.com/gordondoskas',
+                                    ],
+                                    ['facebook', 'https://facebook.com'],
+                                ].map(([icon, url]) => (
+                                    <Block>
+                                        <Link
+                                            to={url}
+                                            target="_blank"
+                                            rel="noreferrer noopener"
+                                        >
+                                            <GhostButton>
+                                                <FontAwesomeIcon
+                                                    icon={['fab', icon]}
+                                                    size="2x"
+                                                />
+                                            </GhostButton>
+                                        </Link>
+                                    </Block>
+                                ))}
+                            </Block>
                         </Block>
                     </Block>
                 </Block>
