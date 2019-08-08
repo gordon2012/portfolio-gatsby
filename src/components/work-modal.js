@@ -4,7 +4,6 @@ import { Block } from 'baseui/block';
 import { Modal, ModalHeader, ModalBody, FocusOnce } from 'baseui/modal';
 import { documentToReactComponents } from '@contentful/rich-text-react-renderer';
 
-import Debug from './debug';
 import Image from './image';
 import Link from './link';
 import Carousel from './carousel';
@@ -43,11 +42,6 @@ const WorkModal = ({ work, isOpen, setOpen }) => {
                 <Block maxWidth="800px" margin="0 auto" paddingBottom="2rem">
                     {documentToReactComponents(work.body.json)}
                 </Block>
-
-                {/* <Debug title="skills" data={work.skills} />
-                <Debug title="images" data={work.images} />
-                <Debug title="links" data={work.links} /> */}
-
                 {work.images.length > 1 ? (
                     <Block maxWidth="800px" margin="0 auto">
                         <Carousel images={work.images} />

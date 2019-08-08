@@ -93,7 +93,7 @@ const WorkPage = () => {
         <Layout backgroundColor="#ddd">
             <T.H2 $style={{ textAlign: 'center' }}>My Work</T.H2>
 
-            <Container width="600px" padding="0 2rem 2rem">
+            <Container width="1200px" padding="0 2rem">
                 <Card>
                     <T.H5>Filter by Skill:</T.H5>
                     <Block

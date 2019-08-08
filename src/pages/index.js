@@ -42,7 +42,7 @@ const GhostButton = ({ children }) => {
 };
 
 const IndexPage = () => {
-    const [css, theme] = useStyletron();
+    const [css] = useStyletron();
 
     const Link = ({ children, ...props }) => {
         return (
@@ -131,7 +131,7 @@ const IndexPage = () => {
                                     ],
                                     ['facebook', 'https://facebook.com'],
                                 ].map(([icon, url]) => (
-                                    <Block>
+                                    <Block key={icon}>
                                         <Link
                                             to={url}
                                             target="_blank"
