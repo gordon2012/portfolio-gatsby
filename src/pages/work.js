@@ -2,16 +2,14 @@ import 'array-flat-polyfill';
 import React, { useState } from 'react';
 import { graphql, useStaticQuery } from 'gatsby';
 import * as T from 'baseui/typography';
-import { FlexGrid, FlexGridItem } from 'baseui/flex-grid';
+import { Block } from 'baseui/block';
+import { Tag } from 'baseui/tag';
+import { Card } from 'baseui/card';
 
 import Layout from '../components/layout';
 import Container from '../components/container';
 import WorkCard from '../components/work-card';
 import WorkModal from '../components/work-modal';
-
-import { Block } from 'baseui/block';
-import { Tag } from 'baseui/tag';
-import { Card } from 'baseui/card';
 
 const WorkItem = ({ work, filter, setFilter }) => {
     const [isOpen, setOpen] = useState(false);
@@ -152,22 +150,26 @@ const WorkPage = () => {
                 ).map(category => (
                     <React.Fragment key={category.name}>
                         <T.H4>{category.name}</T.H4>
-                        <FlexGrid
-                            padding="0rem"
-                            flexGridColumnCount={[1, 1, 2, 3]}
-                            flexGridColumnGap="2rem"
-                            flexGridRowGap="2rem"
+                        <Block
+                            display="grid"
+                            gridTemplateColumns={[
+                                '1fr',
+                                '1fr',
+                                '1fr 1fr',
+                                '1fr 1fr 1fr',
+                            ]}
+                            gridGap="2rem"
                         >
                             {category.projects.map((project, i) => (
-                                <FlexGridItem key={i}>
+                                <Block key={i} display="flex">
                                     <WorkItem
                                         work={project}
                                         filter={filter}
                                         setFilter={setFilter}
                                     />
-                                </FlexGridItem>
+                                </Block>
                             ))}
-                        </FlexGrid>
+                        </Block>
                     </React.Fragment>
                 ))}
             </Container>

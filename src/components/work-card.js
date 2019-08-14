@@ -18,6 +18,14 @@ const WorkCard = ({ work, setOpen, filter, setFilter }) => {
                         marginRight: '0',
                         marginBottom: '0',
                         marginLeft: '0',
+                        height: '100%',
+                        display: 'flex',
+                    },
+                },
+                Body: {
+                    style: {
+                        display: 'flex',
+                        flexDirection: 'column',
                     },
                 },
             }}
@@ -52,7 +60,13 @@ const WorkCard = ({ work, setOpen, filter, setFilter }) => {
                     </Tag>
                 ))}
             </Block>
-            <Block padding="0.5rem">
+            <Block
+                padding="0.5rem"
+                flex="1"
+                display="flex"
+                flexDirection="column"
+                justifyContent="center"
+            >
                 <Image src={work.images[0].file.url} />
             </Block>
             <Block padding="0" marginBottom="-16px">
