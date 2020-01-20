@@ -33,6 +33,8 @@ const Flex = styled.div`
 
 const Box = styled.div`
     flex: 1;
+    display: flex;
+    flex-direction: column;
 `;
 
 const Layout = ({children}) => (
