@@ -3,7 +3,7 @@ import React from 'react';
 // import * as T from 'baseui/typography';
 // import { Button, KIND, SIZE, SHAPE } from 'baseui/button';
 // import { useStyletron } from 'baseui';
-// import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Link as GatsbyLink } from 'gatsby';
 import styled from 'styled-components';
 
@@ -40,13 +40,19 @@ const Button = styled.span`
     }
 `;
 
-const Link = ({children, to}) => (
+const Link = ({ children, to }) => (
     <Button>
         <GatsbyLink to={to}>{children}</GatsbyLink>
     </Button>
 );
 
-// const Anchor = () => <></>;
+const Anchor = ({ children, to }) => (
+    <Button>
+        <a href={to} target="_blank" rel="noreferrer noopener">
+            {children}
+        </a>
+    </Button>
+);
 
 // const GhostButton = ({ children }) => {
 //     return (
@@ -85,7 +91,6 @@ const Container = ({ children }) => {
         flex: 1;
         display: flex;
         justify-content: center;
-
     `;
 
     const Inner = styled.div`
@@ -103,7 +108,6 @@ const Container = ({ children }) => {
             flex: 1;
             /* display: flex; */
         }
-
     `;
 
     const Content = ({ left, right }) => {
@@ -115,7 +119,6 @@ const Container = ({ children }) => {
             background-image: url(${skyDarkImg});
             background-size: cover;
             background-position: center;
-
         `;
 
         const B = styled.div`
@@ -158,9 +161,7 @@ const Container = ({ children }) => {
             }
         `;
 
-        const L = styled(S)`
-
-        `;
+        const L = styled(S)``;
 
         const R = styled(S)`
             h2 {
@@ -182,35 +183,57 @@ const Container = ({ children }) => {
         );
     };
 
-
     const social = [
         ['github', 'github.com/gordon2012'],
         ['linkedin', 'linkedin.com/in/gordon-doskas'],
         ['twitter', 'twitter.com/gordondoskas'],
-        ['facebook', 'facebook.com']
+        ['facebook', 'facebook.com'],
     ];
 
     const Grid = styled.div`
+        border: 3px solid red;
 
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        grid-gap: 1rem;
+
+        div {
+            border: 3px solid magenta;
+        }
     `;
 
     return (
         <Content
-            left={<>
-                <h1>Gordon Doskas</h1>
-            </>}
-            right={<>
-                <h2>I am a <strong>Web Developer</strong></h2>
-                <h2>Check out my <Link to="work">Projects</Link></h2>
-                <h2>Find me on Social Media:</h2>
-                <div>
-                    {social.map(([icon, url]) => {
-                        return (
-                            <>{icon}</>
-                        )
-                    })}
-                </div>
-            </>}
+            left={
+                <>
+                    <h1>Gordon Doskas</h1>
+                </>
+            }
+            right={
+                <>
+                    <h2>
+                        I am a <strong>Web Developer</strong>
+                    </h2>
+                    <h2>
+                        Check out my <Link to="work">Projects</Link>
+                    </h2>
+                    <h2>Find me on Social Media:</h2>
+                    <Grid>
+                        {social.map(([icon, url]) => {
+                            return (
+                                <div>
+                                    <Anchor to={`https://${url}`}>
+                                        <FontAwesomeIcon
+                                            icon={['fab', icon]}
+                                            size="2x"
+                                        />
+                                    </Anchor>
+                                </div>
+                            );
+                        })}
+                    </Grid>
+                </>
+            }
         />
     );
 };
@@ -218,9 +241,7 @@ const Container = ({ children }) => {
 const IndexPage = () => (
     <Layout>
         <Container>
-            <div>
-                Gordon Doskas
-            </div>
+            <div>Gordon Doskas</div>
             <div>
                 I am a <strong>Web Developer</strong>
             </div>
