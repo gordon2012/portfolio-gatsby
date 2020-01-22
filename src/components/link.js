@@ -1,10 +1,15 @@
 import React from 'react';
 
 import { Link as GatsbyLink } from 'gatsby';
-import { styled } from 'baseui';
 
-const StyledGatsbyLink = styled(GatsbyLink);
-const Anchor = styled('a');
+// import { styled } from 'baseui';
+import styled from 'styled-components';
+
+// const StyledGatsbyLink = styled(GatsbyLink);
+// const Anchor = styled('a');
+
+const StyledGatsbyLink = styled(GatsbyLink)``;
+const Anchor = styled.a``;
 
 export default props => {
     const { children, to = '/', ...restProps } = props;
