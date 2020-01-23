@@ -4,7 +4,6 @@ import styled from 'styled-components';
 
 import Layout from '../components/layout';
 import UnstyledLink from '../components/link';
-
 import skyDarkImg from '../images/sky-dark.jpg';
 
 const Button = styled(UnstyledLink)`
@@ -27,92 +26,66 @@ const IconButton = styled(Button)`
     padding: 0.5rem;
 `;
 
-const Container = ({ children }) => {
-    const Content = ({ left, right }) => {
-        const A = styled.div`
-            flex: 1;
-            display: flex;
-            background-image: url(${skyDarkImg});
-            background-size: cover;
-            background-position: center;
-        `;
+const Background = styled.div`
+    flex: 1;
+    display: flex;
+    background-image: url(${skyDarkImg});
+    background-size: cover;
+    background-position: center;
+`;
 
-        const B = styled.div`
-            flex: 1;
-            max-width: 1000px;
-            margin: 0 auto;
-            display: flex;
-        `;
-
-        const C = styled.div`
-            flex: 1;
-            padding: 1rem;
-            display: flex;
-            @media (max-width: 899px) {
-                flex-direction: column;
-            }
-        `;
-
-        const S = styled.div`
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            color: white;
-            @media (max-width: 899px) {
-                align-items: center;
-            }
-        `;
-
-        const L = styled(S)``;
-
-        const R = styled(S)`
-            h2 {
-                margin: 0.5rem 0;
-            }
-        `;
-
-        return (
-            <A>
-                <B>
-                    <C>
-                        <L>{left}</L>
-                        <R>{right}</R>
-                    </C>
-                </B>
-            </A>
-        );
-    };
-
-    const social = [
-        ['github', 'github.com/gordon2012'],
-        ['linkedin', 'linkedin.com/in/gordon-doskas'],
-        ['twitter', 'twitter.com/gordondoskas'],
-    ];
-
-    const Grid = styled.div`
-        padding-top: 1rem;
+const Container = styled.div`
+    flex: 1;
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 1rem;
+    display: flex;
+    @media (max-width: 899px) {
+        flex-direction: column;
+    }
+    & > div {
+        flex: 1;
         display: flex;
-        div {
-            padding: 0 0.5rem;
+        flex-direction: column;
+        justify-content: center;
+        color: white;
+        @media (max-width: 899px) {
+            align-items: center;
         }
-        div:first-child {
-            padding-left: 0;
+        h2 {
+            margin: 0.5rem 0;
         }
-        div:last-child {
-            padding-right: 0;
-        }
-    `;
+    }
+`;
 
-    return (
-        <Content
-            left={
-                <>
+const Grid = styled.div`
+    padding-top: 1rem;
+    display: flex;
+    div {
+        padding: 0 0.5rem;
+    }
+    div:first-child {
+        padding-left: 0;
+    }
+    div:last-child {
+        padding-right: 0;
+    }
+`;
+
+const social = [
+    ['github', 'github.com/gordon2012'],
+    ['linkedin', 'linkedin.com/in/gordon-doskas'],
+    ['twitter', 'twitter.com/gordondoskas'],
+];
+
+const IndexPage = () => (
+    <Layout>
+        <Background>
+            <Container>
+                <div>
                     <h1>Gordon Doskas</h1>
-                </>
-            }
-            right={
-                <>
+                </div>
+                <div>
                     <h2>
                         I am a <strong>Web Developer</strong>
                     </h2>
@@ -123,31 +96,19 @@ const Container = ({ children }) => {
                     <Grid>
                         {social.map(([icon, url]) => {
                             return (
-                                <div>
-                                    <IconButton to={`https://${url}`}>
+                                <div key={icon}>
+                                    <IconButton to={`https://${url}`} target="_blank" rel="noreferer noopener">
                                         <FontAwesomeIcon
                                             icon={['fab', icon]}
-                                            size=""
                                         />
                                     </IconButton>
                                 </div>
                             );
                         })}
                     </Grid>
-                </>
-            }
-        />
-    );
-};
-
-const IndexPage = () => (
-    <Layout>
-        <Container>
-            <div>Gordon Doskas</div>
-            <div>
-                I am a <strong>Web Developer</strong>
-            </div>
-        </Container>
+                </div>
+            </Container>
+        </Background>
     </Layout>
 );
 
