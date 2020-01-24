@@ -11,7 +11,6 @@ import Layout from '../components/layout';
 import WorkCard from '../components/work-card';
 import WorkModal from '../components/work-modal';
 
-
 import styled from 'styled-components';
 
 const Background = styled.div`
@@ -20,28 +19,22 @@ const Background = styled.div`
 `;
 
 const Container = styled.div`
-    max-width: 1200px;
-    width: 100%;
+    max-width: 1400px;
     margin: 0 auto;
+    padding: 2rem;
 `;
 
-
-
 const Card = styled.div`
-
     background: white;
     padding: 2rem;
-
     box-shadow: 0 1px 4px rgba(0, 0, 0, 0.16);
-
 `;
 
 const Tag = ({ children }) => {
     const Outer = styled.span`
-
+        display: inline-block;
         background: red;
         color: white;
-
         padding: 2px 12px;
         margin: 5px;
         border-radius: 12px;
@@ -60,20 +53,20 @@ const Tag = ({ children }) => {
     );
 };
 
+const Grid = styled.div`
+    /* border: 3px solid red; */
 
-const OldTag = styled.span`
-    /* background: red;
-    color: white; */
+    display: grid;
+    grid-gap: 2rem;
+    grid-template-columns: repeat(3, 1fr);
 
-    padding: 2px 12px;
-    margin: 5px;
-    border-radius: 12px;
-    height: 24px;
+    & > div {
+        /* border: 3px solid magenta; */
 
+        display: flex;
+        flex-direction: column;
+    }
 `;
-
-
-
 
 const WorkItem = ({ work, filter, setFilter }) => {
     const [isOpen, setOpen] = useState(false);
@@ -92,6 +85,8 @@ const WorkItem = ({ work, filter, setFilter }) => {
 };
 
 const WorkPage = () => {
+    const [filter, setFilter] = useState('');
+
     const data = useStaticQuery(graphql`
         query {
             allContentfulProject(
@@ -128,7 +123,6 @@ const WorkPage = () => {
             }
         }
     `);
-    // console.log(data);
 
     const categories = data.allContentfulProject.group.map(group => {
         return {
@@ -139,7 +133,6 @@ const WorkPage = () => {
             }),
         };
     });
-    console.log(categories);
 
     const skills = Array.from(
         new Set(
@@ -150,26 +143,53 @@ const WorkPage = () => {
                 .flat(2)
         )
     ).sort();
-    // console.log(skills);
-
-    const [filter, setFilter] = useState('');
-
 
     return (
         <Layout>
             <Background>
                 <Container>
                     <h2>My Work</h2>
-
                     <Card>
                         <h3>Filter by Skill:</h3>
-
-                        <Tag>bootstrap</Tag>
-
+                        <Tag>ALL</Tag>
+                        {skills.map(skill => (
+                            <Tag key={skill}>{skill}</Tag>
+                        ))}
                     </Card>
+                    {(filter
+                        ? categories
+                            .filter(c =>
+                                c.projects.some(p =>
+                                    p.skills.some(s => s === filter)
+                                )
+                            )
+                            .map(c => ({
+                                ...c,
+                                projects: c.projects.filter(p =>
+                                    p.skills.some(s => s === filter)
+                                ),
+                            }))
+                        : categories
+                    ).map(category => (
+                        <React.Fragment key={category.name}>
+                            <h4>{category.name}</h4>
+                            <Grid>
+                                {category.projects.map((project, i) => (
+                                    <div key={i}>
+                                        <WorkItem
+                                            work={project}
+                                            filter={filter}
+                                            setFilter={setFilter}
+                                        />
+                                    </div>
+                                ))}
+                            </Grid>
+                        </React.Fragment>
+                    ))}
                 </Container>
             </Background>
         </Layout>
+
         // <Layout backgroundColor="#ddd">
         //     <T.H2 $style={{ textAlign: 'center' }}>My Work</T.H2>
 
