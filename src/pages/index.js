@@ -90,7 +90,7 @@ const IndexPage = () => (
                         I am a <strong>Web Developer</strong>
                     </h2>
                     <h2>
-                        Check out my <Button to="work">Projects</Button>
+                        Check out my <Button to="/work">Projects</Button>
                     </h2>
                     <h2>Find me on Social Media:</h2>
                     <Grid>
