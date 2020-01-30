@@ -15,14 +15,17 @@ import UnstyledLink from '../components/link';
 
 import styled from 'styled-components';
 
-const Input = ({ name, children, onChange, ...props }) => {
-    return (
-        <Block as="label" {...props}>
-            <T.Label2>{children}</T.Label2>
-            <StatefulInput name={name} onChange={onChange} size="compact" />
-        </Block>
-    );
-};
+import Form from '../components/form';
+import Input from '../components/input';
+
+// const Input = ({ name, children, onChange, ...props }) => {
+//     return (
+//         <Block as="label" {...props}>
+//             <T.Label2>{children}</T.Label2>
+//             <StatefulInput name={name} onChange={onChange} size="compact" />
+//         </Block>
+//     );
+// };
 
 const CheckInput = ({ name, children, onChange, checked, ...props }) => {
     return (
@@ -62,9 +65,6 @@ const encode = data =>
         )
         .join('&');
 
-
-
-
 const Background = styled.div`
     flex: 1;
     background: #ddd;
@@ -85,6 +85,24 @@ const Card = styled.div`
     background: white;
     padding: 2rem;
     box-shadow: 0 1px 4px rgba(0, 0, 0, 0.16);
+    @media (max-width: 799px) {
+        max-width: 600px;
+        width: 100%;
+        margin: 0 auto;
+    }
+
+    h2 {
+        text-align: center;
+        margin-bottom: 1rem;
+    }
+
+`;
+
+const SocialCard = styled(Card)`
+    /* h2 {
+        text-align: center;
+        margin-bottom: 1rem;
+    } */
 `;
 
 const Grid = styled.div`
@@ -97,35 +115,28 @@ const Grid = styled.div`
 `;
 
 const Social = styled.div`
-    border: 3px solid red;
-
     display: flex;
     flex-direction: column;
     align-items: center;
 `;
 
 const Link = styled(UnstyledLink)`
-
-    /* '#276ef1' : '#e54937' */
-
-    /* padding: 1rem; */
-    /* margin: 1rem; */
-
-
-
-
-    button {
-
-        font-size: 3em;
-        background: #276ef1;
-        color: white;
-        border: none;
-        padding: 1rem;
-        border-radius: 50%;
-
+    width: 80px;
+    height: 80px;
+    font-size: 3em;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0.5rem;
+    background: #276ef1;
+    color: white;
+    :hover {
+        border: 5px solid #276ef1;
+        background: white;
+        color: #276ef1;
     }
 `;
-
 
 const ContactPage = () => {
     const [inputs, setInputs] = useState({});
@@ -138,19 +149,16 @@ const ContactPage = () => {
         setInputs(inputs => ({ ...inputs, [name]: inputs[name] ? '' : 'Yes' }));
     };
 
-    const handleSubmit = event => {
-        event.preventDefault();
-        const form = event.target;
-
+    const handleSubmit = (input) => {
         fetch('/', {
             method: 'POST',
             headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
             body: encode({
-                'form-name': form.getAttribute('name'),
-                ...inputs,
+                'form-name': 'contact',
+                ...input,
             }),
         })
-            .then(() => navigate(form.getAttribute('action')))
+            .then(() => navigate('/thankyou'))
             .catch(error => console.error(error));
     };
 
@@ -165,29 +173,42 @@ const ContactPage = () => {
             <Background>
                 <Container>
                     <h1>Contact Me</h1>
-
                     <Grid>
-                        <Card>
+                        <SocialCard>
                             <h2>Find me on Social Media</h2>
                             <Social>
                                 {social.map(([icon, url]) => (
-                                    <div key={icon}>
-                                        <Link to={url}>
-                                            <button>
-                                                <FontAwesomeIcon
-                                                    icon={['fab', icon]}
-                                                />
-                                            </button>
-                                        </Link>
-                                    </div>
+                                    <Link
+                                        key={icon}
+                                        to={url}
+                                        target="_blank"
+                                        rel="noopener noreferer"
+                                    >
+                                        <FontAwesomeIcon
+                                            icon={['fab', icon]}
+                                        />
+                                    </Link>
                                 ))}
                             </Social>
+                        </SocialCard>
+                        <Card>
+                            <h2>Send me a Note</h2>
+                            <Form
+                                blank debug
+                                onSubmit={handleSubmit}
+                                data-netlify="true"
+                                data-netlify-honeypot="lastName"
+                            >
+                                <Input blank type="hidden" name="form-name" value="contact"/>
+                                <Input required name="firstName" title="First Name"/>
+                                <Input type="honeypot" name="lastName" title="Last Name"/>
+                                <Input required name="email" title="Email"/>
+                                <Input required type="textarea" name="message" title="Message" />
+                                <button>Submit</button>
+                            </Form>
+
                         </Card>
-                        <Card>R</Card>
                     </Grid>
-
-
-
                 </Container>
             </Background>
         </Layout>
