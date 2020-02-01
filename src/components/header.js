@@ -60,7 +60,7 @@ const Header = () => {
             <div>
                 <Flex>
                     <div>
-                        <span>Gordon Doskas</span>
+                        <h3>Gordon Doskas</h3>
                     </div>
                     <Box>
                         {links.map(link => (
@@ -71,7 +71,7 @@ const Header = () => {
                                     color: '#fff',
                                 }}
                             >
-                                {link.label}
+                                <h4>{link.label}</h4>
                             </Link>
                         ))}
                     </Box>

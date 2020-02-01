@@ -20,7 +20,6 @@ const Container = styled.div`
     & > h1 {
         margin-bottom: 2rem;
         text-align: center;
-        font-size: 3em;
     }
 `;
 
