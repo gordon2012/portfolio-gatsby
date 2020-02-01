@@ -1,9 +1,6 @@
 import React from 'react';
-import styled from 'styled-components';
 
-const StyledForm = styled.form``;
-
-const Form = ({ blank, children, debug, onSubmit, data, ...restProps }) => {
+const Form = ({ blank, children, onSubmit, data, ...restProps }) => {
     let elements = React.Children.toArray(children);
 
     const [input, setRawInput] = React.useState(
@@ -69,12 +66,9 @@ const Form = ({ blank, children, debug, onSubmit, data, ...restProps }) => {
     };
 
     return (
-        <>
-            <StyledForm onSubmit={handleSubmit} {...restProps}>
-                {elements}
-            </StyledForm>
-            {debug && Object.keys(input).length > 0 && <pre>{JSON.stringify(input, null, 2)}</pre>}
-        </>
+        <form onSubmit={handleSubmit} {...restProps}>
+            {elements}
+        </form>
     );
 };
 

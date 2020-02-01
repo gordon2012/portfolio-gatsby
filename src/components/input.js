@@ -3,35 +3,28 @@ import styled from 'styled-components';
 
 const StyledInput = styled.div`
     display: flex;
-    align-items: center;
-
-    &:not(:last-child) {
-        margin-bottom: 0.5rem;
-    }
-
+    flex-direction: column;
     label {
-        background: rgba(255, 255, 255, 0.2);
-        padding: 0.25rem 0.5rem;
-        margin-right: 0.5rem;
-        text-align: right;
         flex: 1;
-
+        font-weight: bold;
         &::after {
             color: red;
             content: ' *';
             opacity: ${props => (props.required ? 1 : 0)};
         }
     }
-
     input,
-    select {
-        flex: 3;
+    select,
+    textarea {
+        flex: 1;
         font-family: 'Ubuntu Mono', monospace;
         font-size: 1em;
+        margin: 0.5rem 0 1rem;
+        border: 2px solid #999;
+        padding: 0.25rem;
     }
-
-    div {
-        flex: 3;
+    textarea {
+        min-height: 100px;
     }
 `;
 
@@ -55,6 +48,7 @@ const Input = ({
     const InputWrap = type === 'honeypot' ? styled(StyledInput)`
         position: fixed;
         opacity: 0;
+        pointer-events: none;
     ` : StyledInput;
 
     return (
