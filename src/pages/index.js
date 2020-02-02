@@ -106,7 +106,11 @@ const IndexPage = () => (
                         {social.map(([icon, url]) => {
                             return (
                                 <div key={icon}>
-                                    <IconButton to={`https://${url}`} target="_blank" rel="noreferer noopener">
+                                    <IconButton
+                                        to={`https://${url}`}
+                                        target="_blank"
+                                        rel="noreferrer noopener"
+                                    >
                                         <FontAwesomeIcon
                                             icon={['fab', icon]}
                                         />

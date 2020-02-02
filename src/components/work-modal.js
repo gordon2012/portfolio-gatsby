@@ -124,7 +124,11 @@ const WorkModal = ({ work, isOpen, setOpen }) => {
             <div>
                 {work.links.map((link, i) => (
                     <div key={i}>
-                        <Link to={link.url} target="_blank" rel="noreferer noopener">
+                        <Link
+                            to={link.url}
+                            target="_blank"
+                            rel="noreferrer noopener"
+                        >
                             <button>{link.title}</button>
                         </Link>
                     </div>

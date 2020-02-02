@@ -131,7 +131,7 @@ const ContactPage = () => {
                                             key={icon}
                                             to={url}
                                             target="_blank"
-                                            rel="noopener noreferer"
+                                            rel="noreferrer noopener"
                                         >
                                             <FontAwesomeIcon
                                                 icon={['fab', icon]}
