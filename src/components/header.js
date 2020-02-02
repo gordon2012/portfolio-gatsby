@@ -1,66 +1,98 @@
 import React from 'react';
-import {
-    HeaderNavigation,
-    ALIGN,
-    StyledNavigationItem as NavigationItem,
-    StyledNavigationList as NavigationList,
-} from 'baseui/header-navigation';
-import { styled } from 'baseui';
-import { Label2 } from 'baseui/typography';
+import styled from 'styled-components';
+import { Link as GatsbyLink } from 'gatsby';
 
-import Container from './container';
-import UnstyledLink from './link';
+const Link = styled(GatsbyLink)`
+    color: #ccc;
+    text-decoration: none;
+    font-size: 1.5rem;
+    font-weight: bold;
+    padding: 0 0.5rem;
+    :hover {
+        text-decoration: underline;
+    }
+`;
 
-const Link = styled(UnstyledLink, {
-    color: '#ccc',
-    textDecoration: 'none',
-    ':hover': {
-        textDecoration: 'underline',
-    },
-});
+const BrandLink = styled(GatsbyLink)`
+    color: white;
+    h3 {
+        font-family: 'Fira Code', 'Helvetica', 'Arial', 'sans-serif';
+        word-spacing: -0.25em;
+    }
+    text-decoration: none;
+    :hover {
+        text-decoration: underline;
+    }
+`;
 
-const links = [
-    {
-        label: 'Home',
-        to: '/',
-    },
-    {
-        label: 'Work',
-        to: '/work',
-    },
-    {
-        label: 'Contact',
-        to: '/contact',
-    },
-];
+const Container = styled.div`
+    background: #333;
+    color: white;
+    display: flex;
+    justify-content: center;
+    & > div {
+        width: 100%;
+        max-width: 1200px;
+    }
+`;
 
-export default () => (
-    <Container width="1200px" $style={{ background: '#333' }}>
-        <HeaderNavigation
-            $style={{ borderBottom: 'none', paddingRight: '1rem' }}
-        >
-            <NavigationList $align={ALIGN.left}>
-                <NavigationItem>
-                    <Label2 color="white" fontSize="font600">
-                        Gordon Doskas
-                    </Label2>
-                </NavigationItem>
-            </NavigationList>
-            <NavigationList $align={ALIGN.center} />
-            <NavigationList $align={ALIGN.right}>
-                {links.map(link => (
-                    <NavigationItem key={link.label}>
-                        <Link
-                            to={link.to}
-                            activeStyle={{
-                                color: '#fff',
-                            }}
-                        >
-                            {link.label}
-                        </Link>
-                    </NavigationItem>
-                ))}
-            </NavigationList>
-        </HeaderNavigation>
-    </Container>
-);
+const Flex = styled.div`
+    padding: 1rem;
+    display: flex;
+    span {
+        font-size: 2rem;
+    }
+`;
+
+const Box = styled.div`
+    flex: 1;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+`;
+
+const Header = () => {
+    const links = [
+        {
+            label: 'Home',
+            to: '/',
+        },
+        {
+            label: 'Work',
+            to: '/work',
+        },
+        {
+            label: 'Contact',
+            to: '/contact',
+        },
+    ];
+
+    return (
+        <Container>
+            <div>
+                <Flex>
+                    <div>
+                        <BrandLink to="/">
+                            <h3>Gordon Doskas</h3>
+                        </BrandLink>
+                    </div>
+                    <Box>
+                        {links.map(link => (
+                            <Link
+                                key={link.label}
+                                to={link.to}
+                                activeStyle={{
+                                    color: '#fff',
+                                }}
+                            >
+                                <h4>{link.label}</h4>
+                            </Link>
+                        ))}
+                    </Box>
+                </Flex>
+            </div>
+        </Container>
+    )
+};
+
+export default Header;

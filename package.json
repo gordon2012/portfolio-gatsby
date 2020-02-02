@@ -25,15 +25,17 @@
         "@fortawesome/react-fontawesome": "^0.1.4",
         "array-flat-polyfill": "^1.0.1",
         "babel-loader": "^8.0.6",
-        "baseui": "^8.10.0",
+        "babel-plugin-styled-components": "^1.10.6",
         "gatsby": "^2.13.39",
         "gatsby-cli": "^2.7.19",
-        "gatsby-plugin-styletron": "^4.1.2",
+        "gatsby-plugin-prefetch-google-fonts": "^1.4.3",
+        "gatsby-plugin-react-helmet": "^3.1.22",
+        "gatsby-plugin-styled-components": "^3.1.17",
         "gatsby-source-contentful": "^2.0.71",
         "react": "^16.8.6",
         "react-dom": "^16.8.6",
-        "styletron-engine-atomic": "^1.4.0",
-        "styletron-react": "^5.2.0"
+        "react-helmet": "^5.2.1",
+        "styled-components": "^5.0.0"
     },
     "devDependencies": {
         "@storybook/addon-actions": "^5.1.7",

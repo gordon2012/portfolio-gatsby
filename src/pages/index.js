@@ -1,158 +1,128 @@
 import React from 'react';
-import { Block } from 'baseui/block';
-import * as T from 'baseui/typography';
-import { Button, KIND, SIZE, SHAPE } from 'baseui/button';
-import { useStyletron } from 'baseui';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import styled from 'styled-components';
 
 import Layout from '../components/layout';
+import SEO from '../components/seo';
 import UnstyledLink from '../components/link';
-
 import skyDarkImg from '../images/sky-dark.jpg';
 
-const GhostButton = ({ children }) => {
-    return (
-        <Button
-            kind={KIND.primary}
-            size={SIZE.large}
-            shape={SHAPE.default}
-            overrides={{
-                BaseButton: {
-                    style: () => {
-                        return {
-                            outline: 'white solid',
-                            backgroundColor: 'transparent',
-                            textDecoration: 'none',
-                            ':hover': {
-                                color: 'black',
-                                backgroundColor: 'white',
-                            },
-                            ':focus': {
-                                color: 'black',
-                                backgroundColor: 'white',
-                            },
-                        };
-                    },
-                },
-            }}
-        >
-            {children}
-        </Button>
-    );
-};
+const Button = styled(UnstyledLink)`
+    outline: white solid;
+    padding: 0.5rem 1rem;
+    text-decoration: none;
+    color: white;
+    :hover {
+        color: black;
+        background: white;
+    }
+    :focus {
+        color: black;
+        background: white;
+    }
+`;
 
-const IndexPage = () => {
-    const [css] = useStyletron();
+const IconButton = styled(Button)`
+    font-size: 3em;
+    padding: 0.5rem;
+`;
 
-    const Link = ({ children, ...props }) => {
-        return (
-            <UnstyledLink
-                className={css({ textDecoration: 'none' })}
-                {...props}
-            >
-                {children}
-            </UnstyledLink>
-        );
-    };
+const Background = styled.div`
+    flex: 1;
+    display: flex;
+    background-image: url(${skyDarkImg});
+    background-size: cover;
+    background-position: center;
+`;
 
-    return (
-        <Layout display="flex" flexDirection="column">
-            <Block
-                flex="1"
-                backgroundImage={`url(${skyDarkImg})`}
-                backgroundSize="cover"
-                display="flex"
-            >
-                <Block
-                    flex="1"
-                    maxWidth="1000px"
-                    margin="0 auto"
-                    display="flex"
-                >
-                    <Block
-                        flex="1"
-                        padding="1rem"
-                        display="flex"
-                        flexDirection={['column', 'column', 'row']}
-                    >
-                        <Block
-                            flex="1"
-                            display="flex"
-                            flexDirection="column"
-                            justifyContent="center"
-                            alignItems={['center', 'center', 'flex-start']}
-                            $style={{
-                                textAlign: 'left',
-                            }}
-                        >
-                            <T.H1 color="white">
-                                Gordon
-                                <br />
-                                Doskas
-                            </T.H1>
-                        </Block>
-                        <Block
-                            flex="1"
-                            display="flex"
-                            flexDirection="column"
-                            justifyContent="center"
-                            alignItems={['center', 'center', 'flex-start']}
-                        >
-                            <T.H5 color="white" margin="0.5rem 0">
-                                I am a <strong>Web Developer</strong>
-                            </T.H5>
-                            <T.H5 color="white" margin="0.5rem 0">
-                                Check out my{' '}
-                                <Link to="/work">
-                                    &nbsp;
-                                    <GhostButton>Projects</GhostButton>
-                                </Link>
-                            </T.H5>
-                            <T.H5 color="white" marginBottom="0.5rem">
-                                Find me on Social Media:
-                            </T.H5>
-                            <Block
-                                display="grid"
-                                gridTemplateColumns={[
-                                    '1fr 1fr',
-                                    '1fr 1fr 1fr 1fr',
-                                ]}
-                                gridGap="1rem"
-                            >
-                                {[
-                                    ['github', 'https://github.com/gordon2012'],
-                                    [
-                                        'linkedin',
-                                        'https://www.linkedin.com/in/gordon-doskas',
-                                    ],
-                                    [
-                                        'twitter',
-                                        'https://twitter.com/gordondoskas',
-                                    ],
-                                    ['facebook', 'https://facebook.com'],
-                                ].map(([icon, url]) => (
-                                    <Block key={icon}>
-                                        <Link
-                                            to={url}
-                                            target="_blank"
-                                            rel="noreferrer noopener"
-                                        >
-                                            <GhostButton>
-                                                <FontAwesomeIcon
-                                                    icon={['fab', icon]}
-                                                    size="2x"
-                                                />
-                                            </GhostButton>
-                                        </Link>
-                                    </Block>
-                                ))}
-                            </Block>
-                        </Block>
-                    </Block>
-                </Block>
-            </Block>
-        </Layout>
-    );
-};
+const Container = styled.div`
+    flex: 1;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 1rem;
+    display: flex;
+    @media (max-width: 899px) {
+        flex-direction: column;
+    }
+    & > div {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        color: white;
+        @media (max-width: 899px) {
+            align-items: center;
+        }
+        h2 {
+            margin: 0.5rem 0;
+        }
+    }
+    h1 {
+        font-family: 'Fira Code', 'Helvetica', 'Arial', 'sans-serif';
+        font-size: 4em;
+        padding: 0 1rem;
+        text-align: center;
+        word-spacing: -0.25em;
+    }
+`;
+
+const Grid = styled.div`
+    padding-top: 1rem;
+    display: flex;
+    div {
+        padding: 0 0.5rem;
+    }
+    div:first-child {
+        padding-left: 0;
+    }
+    div:last-child {
+        padding-right: 0;
+    }
+`;
+
+const social = [
+    ['github', 'github.com/gordon2012'],
+    ['linkedin', 'linkedin.com/in/gordon-doskas'],
+    ['twitter', 'twitter.com/gordondoskas'],
+];
+
+const IndexPage = () => (
+    <Layout>
+        <SEO />
+        <Background>
+            <Container>
+                <div>
+                    <h1>Gordon Doskas</h1>
+                </div>
+                <div>
+                    <h2>
+                        I am a <strong>Web Developer</strong>
+                    </h2>
+                    <h2>
+                        Check out my <Button to="/work">Projects</Button>
+                    </h2>
+                    <h2>Find me on Social Media:</h2>
+                    <Grid>
+                        {social.map(([icon, url]) => {
+                            return (
+                                <div key={icon}>
+                                    <IconButton
+                                        to={`https://${url}`}
+                                        target="_blank"
+                                        rel="noreferrer noopener"
+                                    >
+                                        <FontAwesomeIcon
+                                            icon={['fab', icon]}
+                                        />
+                                    </IconButton>
+                                </div>
+                            );
+                        })}
+                    </Grid>
+                </div>
+            </Container>
+        </Background>
+    </Layout>
+);
 
 export default IndexPage;

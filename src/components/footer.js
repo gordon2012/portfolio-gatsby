@@ -1,17 +1,30 @@
 import React from 'react';
-import { Label1 } from 'baseui/typography';
+import styled from 'styled-components';
 
-import Container from './container';
+const Container = styled.div`
+    background: #333;
+    color: white;
+    display: flex;
+    justify-content: center;
+    padding: 1rem;
+    text-align: center;
+    strong {
+        font-family: 'Fira Code', 'Helvetica', 'Arial', 'sans-serif';
+        font-size: 1.1em;
+        word-spacing: -0.25em;
+    }
+    & > div {
+        width: 100%;
+        max-width: 1200px;
+    }
+`;
 
-export default () => (
-    <Container
-        width="1200px"
-        backgroundColor="#333"
-        padding="0.5rem"
-        $style={{ textAlign: 'center' }}
-    >
-        <Label1 color="white" fontSize="font600">
-            Copyright {new Date().getFullYear()} <strong>Gordon Doskas</strong>
-        </Label1>
+const Footer = () => (
+    <Container>
+        <div>
+            <span>Copyright {new Date().getFullYear()} &nbsp;<strong>Gordon Doskas</strong></span>
+        </div>
     </Container>
 );
+
+export default Footer;
