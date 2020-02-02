@@ -49,6 +49,14 @@ const Input = ({
         position: fixed;
         opacity: 0;
         pointer-events: none;
+    ` : type === 'checkbox' ? styled(StyledInput)`
+        flex-direction: row;
+        input {
+            flex: 0;
+            order: -1;
+            margin-top: 0.125rem;
+            margin-right: 0.5rem;
+        }
     ` : StyledInput;
 
     return (
@@ -81,16 +89,14 @@ const Input = ({
             )}
 
             {type === 'checkbox' && (
-                <div className="checkbox-wrap">
-                    <input
-                        type="checkbox"
-                        id={name}
-                        name={name}
-                        checked={value || false}
-                        onChange={handleCheckboxChange}
-                        required={required}
-                    />
-                </div>
+                <input
+                    type="checkbox"
+                    id={name}
+                    name={name}
+                    checked={value || false}
+                    onChange={handleCheckboxChange}
+                    required={required}
+                />
             )}
 
             {type === 'textarea' && (

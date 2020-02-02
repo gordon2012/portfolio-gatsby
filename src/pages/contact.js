@@ -145,7 +145,7 @@ const ContactPage = () => {
                             <Card>
                                 <h2>Send me a Note</h2>
                                 <Form
-                                    blank
+                                    name="contact"
                                     onSubmit={handleSubmit}
                                     data-netlify="true"
                                     data-netlify-honeypot="lastName"
@@ -155,6 +155,7 @@ const ContactPage = () => {
                                     <Input type="honeypot" name="lastName" title="Last Name"/>
                                     <Input required name="email" title="Email"/>
                                     <Input required type="textarea" name="message" title="Message" />
+                                    <Input type="checkbox" name="newsletter" title="Subscribe to my Newsletter"/>
                                     <Button>Submit</Button>
                                 </Form>
                             </Card>
