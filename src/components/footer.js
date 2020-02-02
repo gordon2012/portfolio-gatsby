@@ -8,8 +8,10 @@ const Container = styled.div`
     justify-content: center;
     padding: 1rem;
     text-align: center;
-    span {
-        font-size: 1.2rem;
+    strong {
+        font-family: 'Fira Code', 'Helvetica', 'Arial', 'sans-serif';
+        font-size: 1.1em;
+        word-spacing: -0.25em;
     }
     & > div {
         width: 100%;
@@ -20,7 +22,7 @@ const Container = styled.div`
 const Footer = () => (
     <Container>
         <div>
-            <span>Copyright {new Date().getFullYear()} <strong>Gordon Doskas</strong></span>
+            <span>Copyright {new Date().getFullYear()} &nbsp;<strong>Gordon Doskas</strong></span>
         </div>
     </Container>
 );

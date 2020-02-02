@@ -4,6 +4,7 @@ const Tag = styled.button`
     padding: 0.2rem 1rem;
     border-radius: 1rem;
     font-weight: bold;
+    font-size: 0.9em;
 
     ${({ kind, variant, onClick }) => {
         const color = kind === 'secondary' ? '#276ef1' : '#e54937';

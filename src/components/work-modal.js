@@ -80,6 +80,7 @@ const Modal = ({ children }) => {
             }
         }
         h1 {
+            font-size: 2.5em;
             text-align: center;
         }
     `;

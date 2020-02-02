@@ -10,30 +10,29 @@ import Footer from './footer';
 library.add(fab, faSearch, faCircle);
 
 const GlobalStyle = createGlobalStyle`
-    @import url('https://fonts.googleapis.com/css?family=Montserrat:700|Ubuntu|Ubuntu+Mono&display=swap');
     * {
         box-sizing: border-box;
     }
     body {
         margin: 0;
         padding: 0;
+        font-family: 'Ubuntu', 'Helvetica', 'Arial', 'sans-serif';
+    }
+    input, select, textarea, button {
+        font-family: 'Ubuntu Mono', 'monospace';
     }
     h1, h2, h3, h4, h5, h6 {
-        border: 3px solid blue;
         margin: 0;
-        font-family: "Montserrat";
+        font-family: 'Montserrat', 'Helvetica', 'Arial', 'sans-serif';
         font-weight: bold;
     }
     h1 {
-        border: 3px solid red;
-        font-size: 3em;
+        font-size: 3.5em;
     }
     h2 {
-        border: 3px solid magenta;
         font-size: 2em;
     }
     h3 {
-        border: 3px solid lime;
         font-size: 1.7em;
     }
     h4 {

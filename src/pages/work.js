@@ -1,4 +1,3 @@
-// import 'array-flat-polyfill';
 import React, { useState } from 'react';
 import styled from 'styled-components';
 
@@ -86,7 +85,7 @@ const WorkPage = () => {
                 <Container>
                     <h1>My Work</h1>
                     <Card>
-                        <h2>Filter by Skill:</h2>
+                        <h3>Filter by Skill:</h3>
                         <div>
                             <Tag
                                 kind="secondary"

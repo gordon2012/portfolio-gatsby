@@ -13,6 +13,18 @@ const Link = styled(GatsbyLink)`
     }
 `;
 
+const BrandLink = styled(GatsbyLink)`
+    color: white;
+    h3 {
+        font-family: 'Fira Code', 'Helvetica', 'Arial', 'sans-serif';
+        word-spacing: -0.25em;
+    }
+    text-decoration: none;
+    :hover {
+        text-decoration: underline;
+    }
+`;
+
 const Container = styled.div`
     background: #333;
     color: white;
@@ -60,7 +72,9 @@ const Header = () => {
             <div>
                 <Flex>
                     <div>
-                        <h3>Gordon Doskas</h3>
+                        <BrandLink to="/">
+                            <h3>Gordon Doskas</h3>
+                        </BrandLink>
                     </div>
                     <Box>
                         {links.map(link => (

@@ -15,8 +15,7 @@ const Card = styled.div`
         text-align: center;
         background-color: #333;
         color: white;
-        padding: 1rem;
-        padding-bottom: 0.5rem;
+        padding: 0.5rem 1rem;
     }
     & > div:nth-child(2) {
         flex: 1;

@@ -36,7 +36,7 @@ const Background = styled.div`
 
 const Container = styled.div`
     flex: 1;
-    max-width: 1000px;
+    max-width: 1200px;
     margin: 0 auto;
     padding: 1rem;
     display: flex;
@@ -55,6 +55,13 @@ const Container = styled.div`
         h2 {
             margin: 0.5rem 0;
         }
+    }
+    h1 {
+        font-family: 'Fira Code', 'Helvetica', 'Arial', 'sans-serif';
+        font-size: 4em;
+        padding: 0 1rem;
+        text-align: center;
+        word-spacing: -0.25em;
     }
 `;
 
