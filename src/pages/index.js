@@ -3,6 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import styled from 'styled-components';
 
 import Layout from '../components/layout';
+import SEO from '../components/seo';
 import UnstyledLink from '../components/link';
 import skyDarkImg from '../images/sky-dark.jpg';
 
@@ -87,6 +88,7 @@ const social = [
 
 const IndexPage = () => (
     <Layout>
+        <SEO />
         <Background>
             <Container>
                 <div>

@@ -1,4 +1,9 @@
 module.exports = {
+    siteMetadata: {
+        title: `Gordon Doskas`,
+        description: ``,
+        author: `Gordon Doskas`
+    },
     plugins: [
         {
             resolve: 'gatsby-source-contentful',
@@ -30,6 +35,7 @@ module.exports = {
                     }
                 ]
             }
-        }
+        },
+        `gatsby-plugin-react-helmet`
     ],
 };

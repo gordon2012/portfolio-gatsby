@@ -4,6 +4,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import styled from 'styled-components';
 
 import Layout from '../components/layout';
+import SEO from '../components/seo';
 import Form from '../components/form';
 import Input from '../components/input';
 import UnstyledLink from '../components/link';
@@ -116,6 +117,7 @@ const ContactPage = () => {
 
     return (
         <Layout>
+            <SEO title="Contact"/>
             <Background>
                 <Container>
                     <h1>Contact Me</h1>

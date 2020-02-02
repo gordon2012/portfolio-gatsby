@@ -3,6 +3,7 @@ import styled from 'styled-components';
 
 import useContentful from '../hooks/useContentful';
 import Layout from '../components/layout';
+import SEO from '../components/seo';
 import WorkCard from '../components/work-card';
 import WorkModal from '../components/work-modal';
 import Tag from '../components/tag';
@@ -81,6 +82,7 @@ const WorkPage = () => {
 
     return (
         <Layout>
+            <SEO title="Work"/>
             <Background>
                 <Container>
                     <h1>My Work</h1>

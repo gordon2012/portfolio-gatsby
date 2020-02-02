@@ -3,6 +3,7 @@ import { navigate } from 'gatsby';
 import styled from 'styled-components';
 
 import Layout from '../components/layout';
+import SEO from '../components/seo';
 
 const Container = styled.div`
     flex: 1;
@@ -24,6 +25,7 @@ const ThankyouPage = () => {
     }, []);
     return (
         <Layout>
+            <SEO title="Thank You"/>
             <Container>
                 <h1>Thank You</h1>
             </Container>
