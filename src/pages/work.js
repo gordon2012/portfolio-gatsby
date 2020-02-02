@@ -1,3 +1,4 @@
+import 'array-flat-polyfill';
 import React, { useState } from 'react';
 import styled from 'styled-components';
 
