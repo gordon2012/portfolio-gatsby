@@ -26,10 +26,9 @@ const Container = styled.div`
     max-width: 1400px;
     margin: 0 auto;
     padding: 2rem;
-    & > h1 {
+    h1 {
         margin-bottom: 2rem;
         text-align: center;
-        font-size: 3em;
     }
 `;
 
@@ -96,7 +95,7 @@ const Button = styled.button`
 `;
 
 const ContactPage = () => {
-    const handleSubmit = (input) => {
+    const handleSubmit = input => {
         fetch('/', {
             method: 'POST',
             headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
@@ -117,7 +116,7 @@ const ContactPage = () => {
 
     return (
         <Layout>
-            <SEO title="Contact"/>
+            <SEO title="Contact" />
             <Background>
                 <Container>
                     <h1>Contact Me</h1>
@@ -150,12 +149,38 @@ const ContactPage = () => {
                                     data-netlify="true"
                                     data-netlify-honeypot="lastName"
                                 >
-                                    <Input blank type="hidden" name="form-name" value="contact"/>
-                                    <Input required name="firstName" title="First Name"/>
-                                    <Input type="honeypot" name="lastName" title="Last Name"/>
-                                    <Input required name="email" title="Email"/>
-                                    <Input required type="textarea" name="message" title="Message" />
-                                    <Input type="checkbox" name="newsletter" title="Subscribe to my Newsletter"/>
+                                    <Input
+                                        blank
+                                        type="hidden"
+                                        name="form-name"
+                                        value="contact"
+                                    />
+                                    <Input
+                                        required
+                                        name="firstName"
+                                        title="First Name"
+                                    />
+                                    <Input
+                                        type="honeypot"
+                                        name="lastName"
+                                        title="Last Name"
+                                    />
+                                    <Input
+                                        required
+                                        name="email"
+                                        title="Email"
+                                    />
+                                    <Input
+                                        required
+                                        type="textarea"
+                                        name="message"
+                                        title="Message"
+                                    />
+                                    <Input
+                                        type="checkbox"
+                                        name="newsletter"
+                                        title="Subscribe to my Newsletter"
+                                    />
                                     <Button>Submit</Button>
                                 </Form>
                             </Card>
