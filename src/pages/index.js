@@ -9,7 +9,7 @@ import skyDarkImg from '../images/sky-dark.jpg';
 
 const Button = styled(UnstyledLink)`
     outline: white solid;
-    padding: 0.5rem 1rem;
+    padding: 0.25rem 0.5rem;
     text-decoration: none;
     color: white;
     :hover {
@@ -59,10 +59,8 @@ const Container = styled.div`
     }
     h1 {
         font-family: 'Fira Code', 'Helvetica', 'Arial', 'sans-serif';
-        font-size: 4em;
+        font-size: 2.5em;
         padding: 0 1rem;
-        text-align: center;
-        word-spacing: -0.25em;
     }
 `;
 
@@ -111,9 +109,7 @@ const IndexPage = () => (
                                         target="_blank"
                                         rel="noreferrer noopener"
                                     >
-                                        <FontAwesomeIcon
-                                            icon={['fab', icon]}
-                                        />
+                                        <FontAwesomeIcon icon={['fab', icon]} />
                                     </IconButton>
                                 </div>
                             );

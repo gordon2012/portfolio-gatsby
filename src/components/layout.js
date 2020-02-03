@@ -27,16 +27,16 @@ const GlobalStyle = createGlobalStyle`
         font-weight: bold;
     }
     h1 {
-        font-size: 3.5em;
+        font-size: 2.5em;
     }
     h2 {
-        font-size: 2em;
+        font-size: 1.5em;
     }
     h3 {
-        font-size: 1.7em;
+        font-size: 1.2em;
     }
     h4 {
-        font-size: 0.8em;
+        font-size: 0.7em;
     }
 `;
 
@@ -52,14 +52,12 @@ const Box = styled.div`
     flex-direction: column;
 `;
 
-const Layout = ({children}) => (
+const Layout = ({ children }) => (
     <>
         <GlobalStyle />
         <Flex>
             <Header />
-            <Box>
-                {children}
-            </Box>
+            <Box>{children}</Box>
             <Footer />
         </Flex>
     </>

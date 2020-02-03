@@ -17,7 +17,6 @@ const BrandLink = styled(GatsbyLink)`
     color: white;
     h3 {
         font-family: 'Fira Code', 'Helvetica', 'Arial', 'sans-serif';
-        word-spacing: -0.25em;
     }
     text-decoration: none;
     :hover {
@@ -92,7 +91,7 @@ const Header = () => {
                 </Flex>
             </div>
         </Container>
-    )
+    );
 };
 
 export default Header;
