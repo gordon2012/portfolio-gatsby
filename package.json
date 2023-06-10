@@ -26,7 +26,7 @@
         "array-flat-polyfill": "^1.0.1",
         "babel-loader": "^8.0.6",
         "babel-plugin-styled-components": "^1.10.6",
-        "gatsby": "^2.13.39",
+        "gatsby": "^4.25.7",
         "gatsby-cli": "^2.7.19",
         "gatsby-plugin-prefetch-google-fonts": "^1.4.3",
         "gatsby-plugin-react-helmet": "^3.1.22",
